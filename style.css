@@ -1,14 +1,11 @@
 body {
-    /* Set line height to 1.5 times the font size
-         and use the OS’s UI font as the website font
-       */
-    font: 100%/1.5 system-ui;
-  }
+  /* Set line height to 1.5 times the font size and use the OS’s UI font as the website font */
+  font: 100%/1.5 system-ui;
+}
 
-  .fit-picture {
-    max-width: 100%;
-    height: auto;
-    display: block; /* optional: to remove inline spacing issues */
-    margin: 0 auto; /* optional: centers the image within its container */
-  }
-  
+.fit-picture {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Removes inline spacing issues */
+  margin: 0 auto; /* Centers the image */
+}
