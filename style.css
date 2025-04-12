@@ -1,6 +1,6 @@
 /* Define a global accent color */
 :root {
-  --color-accent: oklch(65% 50% 0);
+  --color-accent: oklch(65% 10 240);
 }
 
 /* Allow browsers (and form elements) to inherit this accent */
