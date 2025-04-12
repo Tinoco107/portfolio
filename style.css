@@ -10,14 +10,14 @@ html {
 
 body {
   /* Set line height to 1.5 times the font size and use the
-   OS’s UI font as the website font */
+     OS’s UI font as the website font */
   font: 100%/1.5 system-ui;
 
   /* Limit content width for optimal readability */
   max-width: 100ch;
 
   /* Center content while ensuring a minimum inline margin 
-  on narrow viewports */
+     on narrow viewports */
   margin-inline: max(1em, calc((100% - 100ch) / 2));
 
   /* Extra spacing to keep text from touching the very edges */
@@ -64,7 +64,49 @@ nav a.current {
 nav a:hover {
   border-bottom: 0.4em solid var(--color-accent); 
   padding-bottom: calc(0.5em - 0.4em); 
-
   /* Apply a light background color with a similar hue to the accent color */
   background-color: oklch(95% 5% 0); /* Feel free to tweak the lightness or chroma values */
+}
+
+/*-------------------------------------*
+ * Contact Form Styling (using CSS Grid)
+ *-------------------------------------*/
+
+/* Ensure form controls use the same typography and sizing as the rest of the page */
+form input,
+form textarea,
+form button {
+  font: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Hide any <br> elements in the form so they don’t interfere with our grid layout */
+form br {
+  display: none;
+}
+
+/* Define the form as a grid container with two columns:
+   - The first column sizes to its content (auto)
+   - The second column takes up the remaining space (1fr)
+   A grid gap is added for spacing between elements. */
+form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1em;
+  align-items: center;
+}
+
+/* Use subgrid on labels so that their children align with the form grid.
+   Also, force each label to span the full width (both columns) so that its content
+   flows naturally into the paired input field. */
+form label {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+/* Ensure the submit button spans the entire width of the form (across both columns) */
+form button {
+  grid-column: 1 / -1;
 }
