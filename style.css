@@ -1,6 +1,6 @@
 /* Define a global accent color */
 :root {
-  --color-accent: oklch(65% 10 240);
+  --color-accent: oklch(85% 10 240);
 }
 
 /* Allow browsers (and form elements) to inherit this accent */
@@ -97,9 +97,6 @@ form {
   align-items: center;
 }
 
-/* Use subgrid on labels so that their children align with the form grid.
-   Also, force each label to span the full width (both columns) so that its content
-   flows naturally into the paired input field. */
 form label {
   display: grid;
   grid-template-columns: subgrid;
@@ -155,12 +152,6 @@ h2, h3, h4, h5, h6 {
 /*-------------------------------------*
  * CV Page Styling
  *-------------------------------------*/
-/* 
-   To ensure these rules apply only to your CV page, consider adding a class 
-   (e.g., "cv") to the <body> element of the CV page and prefixing these selectors 
-   with ".cv". For now, these styles will apply globally to elements arranged as in your CV.
-*/
-
 /* Style the CV page header */
 header {
   text-align: center;
