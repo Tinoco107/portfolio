@@ -1,21 +1,70 @@
+/* Define a global accent color */
+:root {
+  --color-accent: oklch(65% 50% 0);
+}
+
+/* Allow browsers (and form elements) to inherit this accent */
+html {
+  accent-color: var(--color-accent);
+}
+
 body {
-  /* Set line height to 1.5 times the font size and use the OS’s UI font as the website font */
+  /* Set line height to 1.5 times the font size and use the
+   OS’s UI font as the website font */
   font: 100%/1.5 system-ui;
 
-  /* Limit content width to around 100 characters */
+  /* Limit content width for optimal readability */
   max-width: 100ch;
 
-  /* Center content using a flexible margin:
-     When the viewport is wide, center the content; for narrow viewports, ensure at least a 1em margin */
+  /* Center content while ensuring a minimum inline margin 
+  on narrow viewports */
   margin-inline: max(1em, calc((100% - 100ch) / 2));
 
-  /* Add padding so the content doesn't touch the edges on small screens */
+  /* Extra spacing to keep text from touching the very edges */
   padding: 1em;
 }
 
 .fit-picture {
   max-width: 100%;
   height: auto;
-  display: block; /* Eliminates inline spacing issues */
-  margin: 0 auto; /* Centers the image */
+  display: block; /* Removes inline spacing issues */
+  margin: 0 auto; /* Centers the picture */
+}
+
+/* Navigation Bar Styling */
+nav {
+  display: flex; 
+  margin-bottom: 1em; 
+  border-bottom: 1px solid oklch(80% 3% 200); 
+}
+
+/* Remove default <ul> & <li> styling */
+nav ul,
+nav li {
+  display: contents;
+}
+
+/* Style each navigation link */
+nav a {
+  flex: 1; 
+  text-decoration: none; /* Remove underlines */
+  color: inherit; 
+  text-align: center; 
+  padding: 0.5em; 
+}
+
+/* Special styling for the current page’s link */
+nav a.current {
+  border-bottom: 0.4em solid oklch(80% 3% 200); /* Thick bottom border */
+  /* Reduce bottom padding to counter the added border height */
+  padding-bottom: calc(0.5em - 0.4em);
+}
+
+/* Accent hover styles for navigation links */
+nav a:hover {
+  border-bottom: 0.4em solid var(--color-accent); 
+  padding-bottom: calc(0.5em - 0.4em); 
+
+  /* Apply a light background color with a similar hue to the accent color */
+  background-color: oklch(95% 5% 0); /* Feel free to tweak the lightness or chroma values */
 }
