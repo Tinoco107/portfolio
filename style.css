@@ -65,7 +65,7 @@ nav a:hover {
   border-bottom: 0.4em solid var(--color-accent); 
   padding-bottom: calc(0.5em - 0.4em); 
   /* Apply a light background color with a similar hue to the accent color */
-  background-color: oklch(95% 5% 0); /* Feel free to tweak the lightness or chroma values */
+  background-color: oklch(95% 5% 0);
 }
 
 /*-------------------------------------*
@@ -150,4 +150,82 @@ h1 {
 h2, h3, h4, h5, h6 {
   line-height: 1.1;
   text-wrap: balance;
+}
+
+/*-------------------------------------*
+ * CV Page Styling
+ *-------------------------------------*/
+/* 
+   To ensure these rules apply only to your CV page, consider adding a class 
+   (e.g., "cv") to the <body> element of the CV page and prefixing these selectors 
+   with ".cv". For now, these styles will apply globally to elements arranged as in your CV.
+*/
+
+/* Style the CV page header */
+header {
+  text-align: center;
+  border-bottom: 2px solid oklch(80% 3% 200);
+  padding-bottom: 1em;
+  margin-bottom: 2em;
+}
+
+/* CV Header Title (reinforcing hierarchy) */
+header h1 {
+  font-size: 400%; 
+  margin-bottom: 0.5em;
+}
+
+/* CV Header Subtitle */
+header p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Style CV sections within the main content */
+main section {
+  margin-bottom: 2em;
+}
+
+/* Style section headers in the CV */
+main section h2 {
+  font-size: 150%;
+  border-bottom: 1px solid oklch(80% 3% 200);
+  padding-bottom: 0.25em;
+  margin-bottom: 1em;
+}
+
+/* Style articles within sections (e.g., Education, Experience) */
+main section article {
+  border: 1px solid #ccc;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+/* Article header styles (e.g., job title, degree) */
+main section article header h3 {
+  margin: 0;
+  font-size: 120%;
+  color: var(--color-accent);
+}
+
+/* Style unordered lists within articles */
+main section article ul {
+  margin: 0.5em 0 0 1em;
+  padding: 0;
+}
+
+/* Skills section: display skills as inline badges */
+#skills ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  padding: 0;
+}
+
+#skills ul li {
+  background-color: oklch(95% 5% 0);
+  padding: 0.5em 1em;
+  border-radius: 4px;
 }
