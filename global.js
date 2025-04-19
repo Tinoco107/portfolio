@@ -5,12 +5,11 @@ function $$(selector, context = document) {
 }
 
 // Automatic Navigation Menu
-// Remove the manual navigation markup from your HTML!
 
 // Determine the base path for internal links depending on the environment.
 const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "/"                  // Local server
-  : "/portfolio/";       // GitHub Pages — ensure this matches your repo's subdirectory
+  : "/portfolio/";       // GitHub Pages
 
 // Define your site pages
 let pages = [
