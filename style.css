@@ -1,6 +1,7 @@
-/* Define a global accent color */
+/* Define a global accent color and declare that we support both light and dark modes */
 :root {
   --color-accent: oklch(65% 10% 240);
+  color-scheme: light dark;
 }
 
 /* Allow browsers (and form elements) to inherit this accent */
@@ -9,18 +10,16 @@ html {
 }
 
 body {
-  /* Set line height to 1.5 times the font size and use the
-     OS’s UI font as the website font */
+  /* Set line height to 1.5 times the font size and use the OS’s UI font */
   font: 100%/1.5 system-ui;
 
-  /* Limit content width for optimal readability */
+  /* Limit content width for optimal readability (roughly 100 characters wide) */
   max-width: 100ch;
 
-  /* Center content while ensuring a minimum inline margin 
-     on narrow viewports */
+  /* Center content while ensuring a minimum inline margin on small viewports */
   margin-inline: max(1em, calc((100% - 100ch) / 2));
 
-  /* Extra spacing to keep text from touching the very edges */
+  /* Extra spacing so text doesn’t touch the viewport edges */
   padding: 1em;
 }
 
@@ -28,14 +27,21 @@ body {
   max-width: 100%;
   height: auto;
   display: block; /* Removes inline spacing issues */
-  margin: 0 auto; /* Centers the picture */
+  margin: 0 auto; /* Centers the image */
 }
 
-/* Navigation Bar Styling */
+/*-------------------------------------*
+ * Navigation Bar Styling
+ *-------------------------------------*/
+
 nav {
-  display: flex; 
   margin-bottom: 1em; 
-  border-bottom: 1px solid oklch(80% 3% 200); 
+  display: flex;
+  margin-bottom: 1em;
+  
+  /* Define a border color variable that adapts for dark mode */
+  --border-color: oklch(50% 10% 200 / 40%);
+  border-bottom: 1px solid var(--border-color);
 }
 
 /* Remove default <ul> & <li> styling */
@@ -46,33 +52,33 @@ nav li {
 
 /* Style each navigation link */
 nav a {
-  flex: 1; 
+  flex: 1;
   text-decoration: none; /* Remove underlines */
-  color: inherit; 
-  text-align: center; 
-  padding: 0.5em; 
+  color: inherit;
+  text-align: center;
+  padding: 0.5em;
 }
 
 /* Special styling for the current page’s link */
 nav a.current {
-  border-bottom: 0.4em solid oklch(80% 3% 200); /* Thick bottom border */
-  /* Reduce bottom padding to counter the added border height */
+  border-bottom: 0.4em solid oklch(80% 3% 200);
+  /* Adjust padding to counter extra border height */
   padding-bottom: calc(0.5em - 0.4em);
 }
 
-/* Accent hover styles for navigation links */
+/* Hover styles for navigation links */
 nav a:hover {
-  border-bottom: 0.4em solid var(--color-accent); 
-  padding-bottom: calc(0.5em - 0.4em); 
-  /* Apply a light background color with a similar hue to the accent color */
-  background-color: oklch(95% 5% 0);
+  border-bottom: 0.4em solid var(--color-accent);
+  padding-bottom: calc(0.5em - 0.4em);
+  /* Blend the accent with the system’s canvas color for a better dark mode effect */
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
 /*-------------------------------------*
  * Contact Form Styling (using CSS Grid)
  *-------------------------------------*/
 
-/* Ensure form controls use the same typography and sizing as the rest of the page */
+/* Ensure form controls match the site’s typography and sizing */
 form input,
 form textarea,
 form button {
@@ -81,15 +87,14 @@ form button {
   box-sizing: border-box;
 }
 
-/* Hide any <br> elements in the form so they don’t interfere with our grid layout */
+/* Hide any <br> elements in the form so the grid layout isn’t disturbed */
 form br {
   display: none;
 }
 
-/* Define the form as a grid container with two columns:
-   - The first column sizes to its content (auto)
-   - The second column takes up the remaining space (1fr)
-   A grid gap is added for spacing between elements. */
+/* Define the form as a two-column grid:
+   - First column (auto) sized to its content
+   - Second column (1fr) takes up the remaining space */
 form {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -97,13 +102,15 @@ form {
   align-items: center;
 }
 
+/* Use subgrid on labels so that their inner elements align with the form grid.
+   Also, force each label to span both columns. */
 form label {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
 }
 
-/* Ensure the submit button spans the entire width of the form (across both columns) */
+/* Make the submit button span the entire grid width */
 form button {
   grid-column: 1 / -1;
 }
@@ -112,14 +119,14 @@ form button {
  * Projects Page Styling
  *-------------------------------------*/
 
-/* Layout for the projects page container */
+/* Responsive grid for projects */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
   gap: 1em;
 }
 
-/* Each article becomes a grid container to align its contents via subgrid */
+/* Each article becomes a grid container with subgrid to align its contents */
 .projects article {
   display: grid;
   grid-template-rows: subgrid;
@@ -127,7 +134,7 @@ form button {
   gap: 0.5em;
 }
 
-/* Remove excessive margin from <h2> in each article for better alignment */
+/* Remove excessive margin from <h2> headings in articles */
 .projects article h2 {
   margin: 0;
 }
@@ -136,14 +143,14 @@ form button {
  * Global Headings Styling
  *-------------------------------------*/
 
-/* Increase the visual hierarchy by enlarging <h1> headings */
+/* Strong hierarchy for <h1> headings */
 h1 {
-  font-size: 400%; /* 400% of the body text size for strong contrast */
+  font-size: 400%; /* 400% of body text size */
   line-height: 1.1;
   text-wrap: balance;
 }
 
-/* Apply consistent styling to all headings for improved readability */
+/* Consistent styling for other headings */
 h2, h3, h4, h5, h6 {
   line-height: 1.1;
   text-wrap: balance;
@@ -152,7 +159,8 @@ h2, h3, h4, h5, h6 {
 /*-------------------------------------*
  * CV Page Styling
  *-------------------------------------*/
-/* Style the CV page header */
+
+/* CV Header styling */
 header {
   text-align: center;
   border-bottom: 2px solid oklch(80% 3% 200);
@@ -160,9 +168,9 @@ header {
   margin-bottom: 2em;
 }
 
-/* CV Header Title (reinforcing hierarchy) */
+/* CV Header Title */
 header h1 {
-  font-size: 400%; 
+  font-size: 400%;
   margin-bottom: 0.5em;
 }
 
@@ -172,12 +180,12 @@ header p {
   color: #555;
 }
 
-/* Style CV sections within the main content */
+/* Style CV sections (Profile, Education, Experience, etc.) */
 main section {
   margin-bottom: 2em;
 }
 
-/* Style section headers in the CV */
+/* Headers within CV sections */
 main section h2 {
   font-size: 150%;
   border-bottom: 1px solid oklch(80% 3% 200);
@@ -185,7 +193,7 @@ main section h2 {
   margin-bottom: 1em;
 }
 
-/* Style articles within sections (e.g., Education, Experience) */
+/* Articles within CV sections styled as cards */
 main section article {
   border: 1px solid #ccc;
   padding: 1em;
@@ -193,20 +201,20 @@ main section article {
   margin-bottom: 1em;
 }
 
-/* Article header styles (e.g., job title, degree) */
+/* Article header styles (job title, degree) */
 main section article header h3 {
   margin: 0;
   font-size: 120%;
   color: var(--color-accent);
 }
 
-/* Style unordered lists within articles */
+/* Unordered lists within articles */
 main section article ul {
   margin: 0.5em 0 0 1em;
   padding: 0;
 }
 
-/* Skills section: display skills as inline badges */
+/* Skills section: style skills as inline badges */
 #skills ul {
   list-style: none;
   display: flex;
@@ -219,4 +227,25 @@ main section article ul {
   background-color: oklch(95% 5% 0);
   padding: 0.5em 1em;
   border-radius: 4px;
+}
+
+/*-------------------------------------*
+ * Dark Mode Switcher Styling
+ *-------------------------------------*/
+
+/* Position the dark mode switcher at the top right corner */
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%;
+  font-family: inherit;
+  background: transparent;
+  color: inherit;
+}
+
+.color-scheme select {
+  font-size: 1em;
+  margin-left: 0.25em;
+  padding: 0.25em;
 }
