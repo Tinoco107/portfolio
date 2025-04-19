@@ -223,7 +223,7 @@ main section article ul {
 }
 
 #skills ul li {
-  background-color: var(--color-accent);
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
   padding: 0.5em 1em;
   border-radius: 4px;
 }
