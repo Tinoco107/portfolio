@@ -8,8 +8,6 @@ function $$(selector, context = document) {
  * Automatic Navigation Menu & Dark Mode Switcher
  *------------------------------------------------*/
 
-// This script will add the navigation and dark mode switcher automatically
-
 // Determine the base path for internal links depending on the environment.
 const BASE_PATH = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "/"                  // Local server
@@ -98,3 +96,34 @@ colorSchemeSelect.addEventListener('input', function (event) {
   console.log('Color scheme changed to', newScheme);
   setColorScheme(newScheme);
 });
+
+/*------------------------------------------------*
+ * Better Contact Form
+ *------------------------------------------------*/
+
+// Get a reference to the contact form which uses a mailto action. 
+// (Ensure your contact form's <form> has an action that begins with "mailto:")
+const contactForm = document.querySelector('form[action^="mailto:"]');
+if (contactForm) {
+  contactForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Create a new FormData object from the form.
+    const data = new FormData(contactForm);
+    let params = [];
+
+    // Iterate over each field in the form.
+    for (let [name, value] of data.entries()) {
+      // Build properly encoded URL parameters (spaces will be encoded as %20).
+      params.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+    }
+    const queryString = params.join('&');
+
+    // Build the final mailto URL using the form's action (mailto:...) and the parameters.
+    const mailtoURL = contactForm.action + '?' + queryString;
+    console.log('Opening mailto URL:', mailtoURL);
+    
+    // Redirect the browser to the mailto: URL to open the user's default mail client.
+    location.href = mailtoURL;
+  });
+}
