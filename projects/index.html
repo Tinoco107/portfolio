@@ -9,71 +9,17 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- The projects title now has a class for dynamic updates -->
+  <h1 class="projects-title">Projects</h1>
   
-  <h1>Projects</h1>
+  <!-- The dynamic project articles will be rendered inside this container -->
   <div class="projects">
-    <article>
-      <h2>Lorem ipsum dolor sit.</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, modi rem quae dolorum in quas officiis debitis reiciendis voluptates, esse sunt fuga sint soluta repellat quaerat labore reprehenderit neque provident?</p>
-    </article>
-    <article>
-      <h2>Fugit nulla cumque placeat.</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Tempora, cumque a quasi odio enim culpa nesciunt, rem voluptates nisi excepturi voluptatibus distinctio eum qui dolorum ipsum similique? Repudiandae illum rerum, explicabo eveniet nihil corporis ducimus maxime laudantium dolore.</p>
-    </article>
-    <article>
-      <h2>Aliquam a sint nemo?</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Nostrum perspiciatis quibusdam reiciendis quas obcaecati totam recusandae eius voluptas in omnis dolore nisi sint nulla harum distinctio nemo, assumenda laboriosam! Non architecto a perferendis maiores! Ex explicabo nesciunt animi!</p>
-    </article>
-    <article>
-      <h2>Fugit voluptate molestiae quidem.</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Beatae possimus optio quisquam ab rerum, excepturi eum. Dolores amet enim accusantium quidem quis delectus suscipit, quos similique porro dignissimos harum ipsum temporibus voluptatum cupiditate, neque, aliquam nemo corporis corrupti.</p>
-    </article>
-    <article>
-      <h2>Quasi eaque odit fugiat?</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Animi eligendi ipsum dolorem unde tenetur. Eius nulla doloremque aut cupiditate eaque. Ut cum ipsum repellendus nesciunt facere sit minima pariatur, expedita, blanditiis tempore itaque assumenda tenetur impedit repellat laboriosam.</p>
-    </article>
-    <article>
-      <h2>Numquam explicabo nisi adipisci!</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Nihil nesciunt incidunt exercitationem voluptatibus esse consequuntur maxime! Odio neque minus molestias delectus quibusdam. Molestias esse, neque totam quibusdam ratione provident similique pariatur ad assumenda illum? Deserunt eligendi nam voluptatibus?</p>
-    </article>
-    <article>
-      <h2>Odit itaque facilis accusamus.</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Nobis, unde laudantium culpa quam non, dicta at labore, nulla quisquam id veritatis voluptatem in molestiae! Magni doloribus odio eveniet iure ex labore explicabo tempore, deserunt omnis nam ipsum accusamus?</p>
-    </article>
-    <article>
-      <h2>Molestiae cumque placeat illum.</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Ratione, similique hic eius reprehenderit expedita, dolor dicta porro provident beatae quo architecto asperiores ullam commodi mollitia nisi harum totam rem optio iusto neque obcaecati veniam repellendus tenetur voluptates! Incidunt.</p>
-    </article>
-    <article>
-      <h2>Ea distinctio repellat sapiente!</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Quis nihil tempore vero consequuntur earum ipsum itaque perferendis numquam iure, laudantium explicabo quod! Quas ea accusamus modi. Labore magnam minus ratione animi id quisquam dolore maiores, impedit ipsa repellendus!</p>
-    </article>
-    <article>
-      <h2>Magnam enim nam possimus.</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Minima autem sapiente impedit, assumenda recusandae placeat ipsam itaque non neque culpa nesciunt eum a voluptatibus pariatur! Expedita, amet cumque, pariatur aliquid dolorem dolore numquam nesciunt commodi nemo illo eveniet!</p>
-    </article>
-    <article>
-      <h2>Autem obcaecati quidem inventore?</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Fugiat minima optio exercitationem ipsam? Nesciunt, voluptatibus hic sed id vero nemo nobis iste veritatis tempora numquam dignissimos distinctio deleniti aliquam explicabo enim molestiae non minima eius ducimus odit neque!</p>
-    </article>
-    <article>
-      <h2>Dolor perspiciatis at pariatur?</h2>
-      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-      <p>Vel, explicabo deserunt sequi consequatur maiores exercitationem. Recusandae, aliquid hic dolore odio placeat doloremque distinctio aut animi ex est, obcaecati assumenda tenetur illum, deleniti molestiae accusamus sit? Libero, veritatis. Repellendus!</p>
-    </article>
+    <!-- Projects will be dynamically injected here via projects.js -->
   </div>
+
+  <!-- Load global.js first, which defines shared functions & site-wide features -->
   <script type="module" src="global.js"></script>
-  
+  <!-- Load projects.js to fetch and render your project data dynamically -->
+  <script type="module" src="projects.js"></script>
 </body>
 </html>
