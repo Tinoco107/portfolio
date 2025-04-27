@@ -185,3 +185,13 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     containerElement.appendChild(article);
   });
 }
+
+/*------------------------------------------------*
+ * GitHub Data Functions
+ *------------------------------------------------*/
+
+// Function to fetch GitHub profile data for a given username.
+// It calls our fetchJSON function with the GitHub API URL.
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}
