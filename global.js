@@ -138,6 +138,7 @@ if (contactForm) {
 export async function fetchJSON(url) {
   try {
     const resolvedUrl = url.startsWith('http') ? url : BASE_PATH + url;
+    console.log("Fetching JSON from:", resolvedUrl); // Debug: log the resolved URL
     const response = await fetch(resolvedUrl);
     if (!response.ok) {
       throw new Error(`Failed to fetch projects: ${response.statusText}`);
