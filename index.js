@@ -24,7 +24,6 @@ async function loadGitHubProfile() {
     console.log('GitHub Data:', githubData);
     
     const profileStats = document.querySelector('#profile-stats');
-    
     // Update the container with the GitHub data.
     if (profileStats) {
       profileStats.innerHTML = `
