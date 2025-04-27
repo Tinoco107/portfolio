@@ -9,14 +9,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- The projects title now gets updated dynamically -->
   <h1 class="projects-title">Projects</h1>
-  
-  <!-- The dynamic project articles will be injected here -->
   <div class="projects"></div>
 
-  <!-- Load global.js first, then projects.js -->
+  <!-- global.js is in the parent folder, so we use ../global.js -->
   <script type="module" src="../global.js"></script>
+  <!-- projects.js is in the same folder as this index.html -->
   <script type="module" src="projects.js"></script>
 </body>
 </html>
