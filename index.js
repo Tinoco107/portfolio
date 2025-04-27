@@ -22,7 +22,19 @@ async function loadGitHubProfile() {
   try {
     const githubData = await fetchGitHubData('Tinoco107');
     console.log('GitHub Data:', githubData);
-    // You can now update your DOM with githubData as needed.
+    
+    
+    // Update the container with the GitHub data.
+    if (profileStats) {
+      profileStats.innerHTML = `
+        <dl>
+          <dt>Public Repos:</dt><dd>${githubData.public_repos}</dd>
+          <dt>Public Gists:</dt><dd>${githubData.public_gists}</dd>
+          <dt>Followers:</dt><dd>${githubData.followers}</dd>
+          <dt>Following:</dt><dd>${githubData.following}</dd>
+        </dl>
+      `;
+    }
   } catch (error) {
     console.error('Error loading GitHub data:', error);
   }
