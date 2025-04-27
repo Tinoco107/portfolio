@@ -20,8 +20,7 @@ async function loadLatestProjects() {
 
 async function loadGitHubProfile() {
   try {
-    // Replace 'your-username' with your actual GitHub username.
-    const githubData = await fetchGitHubData('your-username');
+    const githubData = await fetchGitHubData('Tinoco107');
     console.log('GitHub Data:', githubData);
     // You can now update your DOM with githubData as needed.
   } catch (error) {
