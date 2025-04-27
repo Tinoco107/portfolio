@@ -23,6 +23,7 @@ async function loadGitHubProfile() {
     const githubData = await fetchGitHubData('Tinoco107');
     console.log('GitHub Data:', githubData);
     
+    const profileStats = document.querySelector('#profile-stats');
     
     // Update the container with the GitHub data.
     if (profileStats) {
