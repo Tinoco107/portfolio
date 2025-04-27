@@ -9,17 +9,14 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- The projects title now has a class for dynamic updates -->
+  <!-- The projects title now gets updated dynamically -->
   <h1 class="projects-title">Projects</h1>
   
-  <!-- The dynamic project articles will be rendered inside this container -->
-  <div class="projects">
-    <!-- Projects will be dynamically injected here via projects.js -->
-  </div>
+  <!-- The dynamic project articles will be injected here -->
+  <div class="projects"></div>
 
-  <!-- Load global.js first, which defines shared functions & site-wide features -->
-  <script type="module" src="global.js"></script>
-  <!-- Load projects.js to fetch and render your project data dynamically -->
+  <!-- Load global.js first, then projects.js -->
+  <script type="module" src="../global.js"></script>
   <script type="module" src="projects.js"></script>
 </body>
 </html>

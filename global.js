@@ -133,10 +133,12 @@ if (contactForm) {
  * Project Data Functions for Modular Templating
  *------------------------------------------------*/
 
-// Function to fetch and parse JSON data from a given URL
+// Function to fetch and parse JSON data from a given URL.
+// If the provided URL is not absolute, it is prefixed with BASE_PATH.
 export async function fetchJSON(url) {
   try {
-    const response = await fetch(url);
+    const resolvedUrl = url.startsWith('http') ? url : BASE_PATH + url;
+    const response = await fetch(resolvedUrl);
     if (!response.ok) {
       throw new Error(`Failed to fetch projects: ${response.statusText}`);
     }
