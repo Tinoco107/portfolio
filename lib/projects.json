@@ -1,63 +1,74 @@
 [
   {
-    "title": "Lorem ipsum dolor sit.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, modi rem quae dolorum in quas officiis debitis reiciendis voluptates, esse sunt fuga sint soluta repellat quaerat labore reprehenderit neque provident?"
+    "title": "Responsive Portfolio Website",
+    "year": "2022",
+    "image": "https://example.com/images/portfolio.png",
+    "description": "A responsive website to showcase my projects and resume. Designed with modern CSS techniques and JavaScript interactivity."
   },
   {
-    "title": "Fugit nulla cumque placeat.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Tempora, cumque a quasi odio enim culpa nesciunt, rem voluptates nisi excepturi voluptatibus distinctio eum qui dolorum ipsum similique? Repudiandae illum rerum, explicabo eveniet nihil corporis ducimus maxime laudantium dolore."
+    "title": "Data Visualization Dashboard",
+    "year": "2023",
+    "image": "https://example.com/images/dashboard.png",
+    "description": "An interactive dashboard built using D3.js that visualizes data trends over time."
   },
   {
-    "title": "Aliquam a sint nemo?",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Nostrum perspiciatis quibusdam reiciendis quas obcaecati totam recusandae eius voluptas in omnis dolore nisi sint nulla harum distinctio nemo, assumenda laboriosam! Non architecto a perferendis maiores! Ex explicabo nesciunt animi!"
+    "title": "E-commerce Platform",
+    "year": "2021",
+    "image": "https://example.com/images/ecommerce.png",
+    "description": "A full-stack e-commerce solution with a robust back-end API, payment integration, and a sleek front-end design."
   },
   {
-    "title": "Fugit voluptate molestiae quidem.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Beatae possimus optio quisquam ab rerum, excepturi eum. Dolores amet enim accusantium quidem quis delectus suscipit, quos similique porro dignissimos harum ipsum temporibus voluptatum cupiditate, neque, aliquam nemo corporis corrupti."
+    "title": "Mobile Game App",
+    "year": "2024",
+    "image": "https://example.com/images/mobile-game.png",
+    "description": "A fun and engaging mobile game built with Unity and C#. Features include in-app purchases and social sharing."
   },
   {
-    "title": "Quasi eaque odit fugiat?",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Animi eligendi ipsum dolorem unde tenetur. Eius nulla doloremque aut cupiditate eaque. Ut cum ipsum repellendus nesciunt facere sit minima pariatur, expedita, blanditiis tempore itaque assumenda tenetur impedit repellat laboriosam."
+    "title": "Machine Learning Model Deployment",
+    "year": "2022",
+    "image": "https://example.com/images/ml-model.png",
+    "description": "Deployed a machine learning model using Flask and Docker, providing real-time predictions and data insights."
   },
   {
-    "title": "Numquam explicabo nisi adipisci!",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Nihil nesciunt incidunt exercitationem voluptatibus esse consequuntur maxime! Odio neque minus molestias delectus quibusdam. Molestias esse, neque totam quibusdam ratione provident similique pariatur ad assumenda illum? Deserunt eligendi nam voluptatibus?"
+    "title": "Social Media Analytics Tool",
+    "year": "2023",
+    "image": "https://example.com/images/social-analytics.png",
+    "description": "A tool that analyzes social media trends and sentiments, built with Node.js and React."
   },
   {
-    "title": "Odit itaque facilis accusamus.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Nobis, unde laudantium culpa quam non, dicta at labore, nulla quisquam id veritatis voluptatem in molestiae! Magni doloribus odio eveniet iure ex labore explicabo tempore, deserunt omnis nam ipsum accusamus?"
+    "title": "Blog Platform CMS",
+    "year": "2021",
+    "image": "https://example.com/images/cms.png",
+    "description": "Developed a content management system (CMS) for blogging with features for post scheduling, SEO, and custom theming."
   },
   {
-    "title": "Molestiae cumque placeat illum.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Ratione, similique hic eius reprehenderit expedita, dolor dicta porro provident beatae quo architecto asperiores ullam commodi mollitia nisi harum totam rem optio iusto neque obcaecati veniam repellendus tenetur voluptates! Incidunt."
+    "title": "Weather Forecasting App",
+    "year": "2024",
+    "image": "https://example.com/images/weather-app.png",
+    "description": "A sleek, user-friendly weather forecasting app that integrates real-time data from external APIs."
   },
   {
-    "title": "Ea distinctio repellat sapiente!",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Quis nihil tempore vero consequuntur earum ipsum itaque perferendis numquam iure, laudantium explicabo quod! Quas ea accusamus modi. Labore magnam minus ratione animi id quisquam dolore maiores, impedit ipsa repellendus!"
+    "title": "Interactive Learning Module",
+    "year": "2022",
+    "image": "https://example.com/images/learning-module.png",
+    "description": "An interactive online course module with quizzes, tutorials, and animations built with HTML5 and JavaScript."
   },
   {
-    "title": "Magnam enim nam possimus.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Minima autem sapiente impedit, assumenda recusandae placeat ipsam itaque non neque culpa nesciunt eum a voluptatibus pariatur! Expedita, amet cumque, pariatur aliquid dolorem dolore numquam nesciunt commodi nemo illo eveniet!"
+    "title": "Personal Finance Tracker",
+    "year": "2023",
+    "image": "https://example.com/images/finance-tracker.png",
+    "description": "A personal budgeting and finance tracking tool that visualizes spending habits and custom reports."
   },
   {
-    "title": "Autem obcaecati quidem inventore?",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Fugiat minima optio exercitationem ipsam? Nesciunt, voluptatibus hic sed id vero nemo nobis iste veritatis tempora numquam dignissimos distinctio deleniti aliquam explicabo enim molestiae non minima eius ducimus odit neque!"
+    "title": "Virtual Reality Experience",
+    "year": "2021",
+    "image": "https://example.com/images/vr-experience.png",
+    "description": "Developed a VR application that immerses users in a simulated environment, built with A-Frame and WebVR."
   },
   {
-    "title": "Dolor perspiciatis at pariatur?",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Vel, explicabo deserunt sequi consequatur maiores exercitationem. Recusandae, aliquid hic dolore odio placeat doloremque distinctio aut animi ex est, obcaecati assumenda tenetur illum, deleniti molestiae accusamus sit? Libero, veritatis. Repellendus!"
+    "title": "Chat Application",
+    "year": "2024",
+    "image": "https://example.com/images/chat-app.png",
+    "description": "A real-time chat application with support for multimedia messages and cross-platform notifications."
   }
 ]
-  
