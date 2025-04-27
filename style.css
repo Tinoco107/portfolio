@@ -248,3 +248,28 @@ main section article ul {
   margin-left: 0.25em;
   padding: 0.25em;
 }
+/* Styling for GitHub Profile Stats in the #profile-stats container */
+#profile-stats dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem; /* Optional: adjust gap between grid items */
+  text-align: center;
+  margin: 1rem 0;
+}
+
+#profile-stats dt,
+#profile-stats dd {
+  margin: 0;        /* Remove default margins */
+  padding: 0.5rem;  /* Add some padding for better spacing */
+}
+
+#profile-stats dt {
+  grid-row: 1; /* Force all <dt> elements into the first row */
+  font-weight: bold;
+  background: #f0f0f0; /* Optional: a light background to distinguish header cells */
+}
+
+#profile-stats dd {
+  grid-row: 2; /* Force all <dd> elements into the second row */
+  background: #fafafa; /* Optional: a slightly different background for data cells */
+}
