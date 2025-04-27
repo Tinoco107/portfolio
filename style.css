@@ -266,10 +266,10 @@ main section article ul {
 #profile-stats dt {
   grid-row: 1; /* Force all <dt> elements into the first row */
   font-weight: bold;
-  background: #f0f0f0; /* Optional: a light background to distinguish header cells */
+  background: transparent;
 }
 
 #profile-stats dd {
   grid-row: 2; /* Force all <dd> elements into the second row */
-  background: #fafafa; /* Optional: a slightly different background for data cells */
+  background: transparent;
 }
