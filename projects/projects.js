@@ -11,7 +11,8 @@ let allProjects = [];
 let selectedIndex = -1;
 // Global variable to store the current pie chart data (to use in filtering)
 let currentPieData = [];
-let selectedYear = null; // This variable will store the currently selected year
+// Global variable to store the currently selected year (null means no selection)
+let selectedYear = null; 
 
 /**
  * Loads project JSON from `lib/projects.json`, renders the projects list,
@@ -73,9 +74,16 @@ function renderPieChart(projectsGiven) {
       .attr('fill', colors(i))
       .style('cursor', 'pointer')
       .on('click', function (event, datum) {
-         // Toggle selection: deselect if clicked wedge is already selected;
-         // otherwise, select the clicked wedge.
-         selectedIndex = selectedIndex === i ? -1 : i;
+         // Toggle selection: if this wedge is already selected, deselect it;
+         // otherwise, select it.
+         if (selectedIndex === i) {
+           selectedIndex = -1;
+           selectedYear = null;
+         } else {
+           selectedIndex = i;
+           // Set selectedYear to the label of the clicked wedge.
+           selectedYear = currentPieData[i].label;
+         }
          updateHighlight();
          updateFilteringAndVisualization();
       })
@@ -92,8 +100,14 @@ function renderPieChart(projectsGiven) {
       .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
       .style('cursor', 'pointer')
       .on('click', function(event, datum) {
-         // Use the same toggle logic for the legend: clicking toggles the selection.
-         selectedIndex = selectedIndex === idx ? -1 : idx;
+         // Toggle the same way as the wedge.
+         if (selectedIndex === idx) {
+           selectedIndex = -1;
+           selectedYear = null;
+         } else {
+           selectedIndex = idx;
+           selectedYear = currentPieData[idx].label;
+         }
          updateHighlight();
          updateFilteringAndVisualization();
       });
@@ -105,15 +119,23 @@ function renderPieChart(projectsGiven) {
  * The selected wedge and corresponding legend item get the 'selected' class.
  */
 function updateHighlight() {
-  // Update pie slices
+  // Update pie slices: if the slice's corresponding year matches selectedYear, add the class.
   const svg = d3.select('#projects-pie-plot');
   svg.selectAll('path')
-     .attr('class', (_, idx) => (idx === selectedIndex ? 'selected' : ''));
+     .attr('class', function(d, idx) {
+       return (selectedYear && currentPieData[idx].label === selectedYear)
+         ? 'selected'
+         : '';
+     });
 
-  // Update legend items
+  // Update legend items in a similar way.
   const legend = d3.select('.legend');
   legend.selectAll('li')
-        .attr('class', (_, idx) => (idx === selectedIndex ? 'legend-item selected' : 'legend-item'));
+        .attr('class', function(d, idx) {
+          return (selectedYear && currentPieData[idx].label === selectedYear)
+            ? 'legend-item selected'
+            : 'legend-item';
+        });
 }
 
 /**
@@ -122,13 +144,13 @@ function updateHighlight() {
  * If no wedge is selected (selectedIndex === -1), the full projects list is shown.
  * Otherwise, only projects for the selected year are shown.
  */
- function updateFilteringAndVisualization() {
+function updateFilteringAndVisualization() {
   const projectsContainer = document.querySelector('.projects');
   const projectsTitleElem = document.querySelector('.projects-title');
 
+  // Filter projects based on selectedYear if a wedge is selected.
   let filteredProjects;
-  if (selectedYear && typeof selectedYear === "string") {
-    // Use trim() to remove any extra whitespace from both sides.
+  if (selectedIndex !== -1 && selectedYear && typeof selectedYear === "string") {
     filteredProjects = allProjects.filter(
       project => project.year.trim() === selectedYear.trim()
     );
@@ -143,13 +165,12 @@ function updateHighlight() {
     projectsTitleElem.textContent = `${filteredProjects.length} projects`;
   }
 
-  // IMPORTANT:
-  // To keep the grouping (and clickable wedges) consistent, we always re-render the pie chart
-  // using the full dataset. Then we apply the highlight based on the stored selectedYear.
+  // To keep the wedge grouping consistent, re-render the pie chart using the full dataset.
   renderPieChart(allProjects);
+  // Reapply highlights after re-rendering.
   updateHighlight();
 
-  // Debug output - check what year is selected and how many projects were filtered.
+  // Debug output to check selected year and filtered projects.
   console.log(`Selected Year: "${selectedYear}" - Filtered Projects: ${filteredProjects.length}`);
 }
 
@@ -167,6 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     searchInput.addEventListener('input', (event) => {
       // Reset any wedge selection when using the search.
       selectedIndex = -1;
+      selectedYear = null;
       query = event.target.value;
       // Filter projects based on all properties (case-insensitive).
       const filteredProjects = allProjects.filter(project => {
