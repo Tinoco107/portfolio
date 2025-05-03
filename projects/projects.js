@@ -10,7 +10,9 @@ function loadProjectsData() {
       renderProjects(projects, projectsContainer, 'h2');
       const projectsTitleElem = document.querySelector('.projects-title');
       if (projectsTitleElem) {
-        projectsTitleElem.textContent = `Projects (${projects ? projects.length : 0})`;
+        // Change the title format from "Projects (12)" to "12 projects"
+        const projectCount = projects ? projects.length : 0;
+        projectsTitleElem.textContent = `${projectCount} projects`;
       }
     })
     .catch(error => console.error('Error loading projects:', error));
