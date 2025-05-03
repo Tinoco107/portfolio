@@ -4,61 +4,74 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 import { fetchJSON, renderProjects } from '../global.js';
 
 function loadProjectsData() {
-  fetchJSON('lib/projects.json')
+  // Return the fetched project data (and render the projects list)
+  return fetchJSON('lib/projects.json')
     .then(projects => {
       const projectsContainer = document.querySelector('.projects');
       renderProjects(projects, projectsContainer, 'h2');
       const projectsTitleElem = document.querySelector('.projects-title');
       if (projectsTitleElem) {
         const projectCount = projects ? projects.length : 0;
-        projectsTitleElem.textContent = `${projectCount} Projects`;
+        // Update title to "12 projects" rather than "Projects (12)"
+        projectsTitleElem.textContent = `${projectCount} projects`;
       }
+      return projects;
     })
-    .catch(error => console.error('Error loading projects:', error));
+    .catch(error => {
+      console.error('Error loading projects:', error);
+      return [];
+    });
 }
 
-function drawPieChart() {
+function drawPieChart(projects) {
+  // Use d3.rollups to group projects by year and count them
+  let rolledData = d3.rollups(
+    projects,
+    v => v.length,
+    d => d.year
+  );
 
-  const data = [
-    { value: 1, label: 'apples' },
-    { value: 2, label: 'oranges' },
-    { value: 3, label: 'mangos' },
-    { value: 4, label: 'pears' },
-    { value: 5, label: 'limes' },
-    { value: 5, label: 'cherries' },
-  ];
+  // Convert the rolled-up data into the format needed for the pie chart:
+  // [{ value: count, label: year }, …]
+  let data = rolledData.map(([year, count]) => ({ value: count, label: year }));
 
-  // Select the SVG element by its id.
+  // Select the SVG element by its id and clear previous content if any
   const svg = d3.select('#projects-pie-plot');
+  svg.selectAll("*").remove();
 
-  // Create an arc generator for pie slices (full circle; innerRadius = 0 for a traditional pie chart)
+  // Create an arc generator for each pie slice (innerRadius=0 gives a pie chart)
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 
-  // Use d3.pie() with a custom value accessor.
+  // Create the pie generator; use the object's "value" property
   const pieGenerator = d3.pie().value(d => d.value);
   const arcData = pieGenerator(data);
 
-  // Define an ordinal color scale.
+  // Define an ordinal color scale (using d3.schemeTableau10)
   const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
-  // Draw each pie slice as an SVG <path> element.
+  // Render each slice as a <path> element
   arcData.forEach((d, i) => {
     svg.append('path')
        .attr('d', arcGenerator(d))
        .attr('fill', colors(i));
   });
 
+  // Build the legend below the pie chart
+  // Select the <ul class="legend"> element and clear any existing legend items
   const legend = d3.select('.legend');
+  legend.selectAll("*").remove();
+
+  // For each data point, create a legend item that specifies the label and value
   data.forEach((d, idx) => {
-    legend
-      .append('li')
+    legend.append('li')
       .attr('style', `--color:${colors(idx)}`)
       .attr('class', 'legend-item')
       .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadProjectsData();
-  drawPieChart();
+document.addEventListener('DOMContentLoaded', async () => {
+  // First, load the project data, then render the pie chart with that data.
+  const projects = await loadProjectsData();
+  drawPieChart(projects);
 });
