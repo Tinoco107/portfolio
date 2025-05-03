@@ -125,22 +125,19 @@ function updateFilteringAndVisualization() {
   const projectsContainer = document.querySelector('.projects');
   const projectsTitleElem = document.querySelector('.projects-title');
   let filteredProjects;
-  if (selectedIndex === -1) {
-    filteredProjects = allProjects;
-  } else {
-    // Use the global currentPieData (set in renderPieChart) to get the selected year.
-    const selectedYear = currentPieData[selectedIndex].label;
+  if (selectedYear) {
     filteredProjects = allProjects.filter(project => project.year === selectedYear);
+  } else {
+    filteredProjects = allProjects;
   }
-  // Render the filtered projects list.
+  // Render the projects list based on the filtered projects.
   renderProjects(filteredProjects, projectsContainer, 'h2');
   if (projectsTitleElem) {
     projectsTitleElem.textContent = `${filteredProjects.length} projects`;
   }
-  // Re-render the pie chart using the filtered projects.
-  // (This allows the chart itself to reflect the filtering.)
-  renderPieChart(filteredProjects);
-  // Apply the highlight to the re-rendered chart.
+  // Re-render the pie chart using the full dataset so that the grouping remains constant.
+  renderPieChart(allProjects);
+  // Reapply the highlight so that the wedge matching selectedYear remains highlighted.
   updateHighlight();
 }
 
