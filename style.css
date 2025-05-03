@@ -33,7 +33,6 @@ body {
 /*-------------------------------------*
  * Navigation Bar Styling
  *-------------------------------------*/
-
 nav {
   display: flex;
   margin-bottom: 1em;
@@ -76,7 +75,6 @@ nav a:hover {
 /*-------------------------------------*
  * Contact Form Styling (using CSS Grid)
  *-------------------------------------*/
-
 /* Ensure form controls match the site’s typography and sizing */
 form input,
 form textarea,
@@ -117,7 +115,6 @@ form button {
 /*-------------------------------------*
  * Projects Page Styling
  *-------------------------------------*/
-
 /* Responsive grid for projects */
 .projects {
   display: grid;
@@ -141,7 +138,6 @@ form button {
 /*-------------------------------------*
  * Global Headings Styling
  *-------------------------------------*/
-
 /* Strong hierarchy for <h1> headings */
 h1 {
   font-size: 400%; /* 400% of body text size */
@@ -149,7 +145,6 @@ h1 {
   text-wrap: balance;
 }
 
-/* Consistent styling for other headings */
 h2, h3, h4, h5, h6 {
   line-height: 1.1;
   text-wrap: balance;
@@ -158,7 +153,6 @@ h2, h3, h4, h5, h6 {
 /*-------------------------------------*
  * CV Page Styling
  *-------------------------------------*/
-
 /* CV Header styling */
 header {
   text-align: center;
@@ -167,24 +161,20 @@ header {
   margin-bottom: 2em;
 }
 
-/* CV Header Title */
 header h1 {
   font-size: 400%;
   margin-bottom: 0.5em;
 }
 
-/* CV Header Subtitle */
 header p {
   font-size: 1rem;
   color: #555;
 }
 
-/* Style CV sections (Profile, Education, Experience, etc.) */
 main section {
   margin-bottom: 2em;
 }
 
-/* Headers within CV sections */
 main section h2 {
   font-size: 150%;
   border-bottom: 1px solid oklch(80% 3% 200);
@@ -192,7 +182,6 @@ main section h2 {
   margin-bottom: 1em;
 }
 
-/* Articles within CV sections styled as cards */
 main section article {
   border: 1px solid #ccc;
   padding: 1em;
@@ -200,20 +189,20 @@ main section article {
   margin-bottom: 1em;
 }
 
-/* Article header styles (job title, degree) */
 main section article header h3 {
   margin: 0;
   font-size: 120%;
   color: var(--color-accent);
 }
 
-/* Unordered lists within articles */
 main section article ul {
   margin: 0.5em 0 0 1em;
   padding: 0;
 }
 
-/* Skills section: style skills as inline badges */
+/*-------------------------------------*
+ * Skills Section Styling
+ *-------------------------------------*/
 #skills ul {
   list-style: none;
   display: flex;
@@ -231,7 +220,6 @@ main section article ul {
 /*-------------------------------------*
  * Dark Mode Switcher Styling
  *-------------------------------------*/
-
 /* Position the dark mode switcher at the top right corner */
 .color-scheme {
   position: absolute;
@@ -249,7 +237,9 @@ main section article ul {
   padding: 0.25em;
 }
 
-/* Styling for GitHub Profile Stats in the #profile-stats container */
+/*-------------------------------------*
+ * GitHub Profile Stats Styling
+ *-------------------------------------*/
 #profile-stats dl {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -265,31 +255,35 @@ main section article ul {
 }
 
 #profile-stats dt {
-  grid-row: 1; /* Force all <dt> elements into the first row */
+  grid-row: 1;
   font-weight: bold;
   background: transparent;
 }
 
 #profile-stats dd {
-  grid-row: 2; /* Force all <dd> elements into the second row */
+  grid-row: 2;
   background: transparent;
 }
 
-/* Project details container for description and year */
+/*-------------------------------------*
+ * Project Details Styling
+ *-------------------------------------*/
 .project-details {
   margin-top: 0.5em;
 }
 
 /* Styling for the project year text */
 .project-year {
-  color: gray; /* Gray letters */
-  font-family: Baskerville, serif; /* Baskerville for a classic look */
-  font-variant-numeric: oldstyle-nums; /* Old-style numeral formatting */
+  color: gray;
+  font-family: Baskerville, serif;
+  font-variant-numeric: oldstyle-nums;
   margin-top: 0.3em;
   font-size: 0.9em;
 }
 
-/* SVG styling for the D3 pie chart element */
+/*-------------------------------------*
+ * SVG Pie Chart Styling
+ *-------------------------------------*/
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
@@ -297,7 +291,7 @@ main section article ul {
 }
 
 /*-------------------------------------*
- * Additional Styles for Pie Chart Legend
+ * Container and Legend for Pie Chart
  *-------------------------------------*/
 
 /* Container for the pie chart and legend */
@@ -328,13 +322,42 @@ main section article ul {
   border: 1px solid #ddd;
   padding: 0.5em;
   border-radius: 4px;
+  cursor: pointer;
 }
 
-/* Swatch styling for legend items */
 .legend .legend-item .swatch {
   display: inline-block;
   width: 1em;
   height: 1em;
   background-color: var(--color);
   border-radius: 50%;
+}
+
+/*-------------------------------------*
+ * Interactive Pie Chart Highlighting
+ *-------------------------------------*/
+/* Add smooth transition and clickable pointer to pie slices */
+#projects-pie-plot path {
+  transition: fill 300ms, opacity 300ms;
+  cursor: pointer;
+}
+
+/* Highlight Effect on Hover: fade out non-hovered slices */
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+/* Selected state styling: override color via custom property */
+.selected {
+  --color: oklch(60% 45% 0) !important;
+}
+
+/* Apply selected styling for pie slices */
+#projects-pie-plot path.selected {
+  fill: var(--color) !important;
+}
+
+/* Apply selected styling for legend items (swatch only) */
+.legend-item.selected .swatch {
+  background-color: var(--color) !important;
 }
