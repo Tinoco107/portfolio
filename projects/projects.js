@@ -9,6 +9,7 @@ function loadProjectsData() {
     .then(projects => {
       const projectsContainer = document.querySelector('.projects');
       renderProjects(projects, projectsContainer, 'h2');
+
       const projectsTitleElem = document.querySelector('.projects-title');
       if (projectsTitleElem) {
         const projectCount = projects ? projects.length : 0;
@@ -24,29 +25,30 @@ function loadProjectsData() {
 }
 
 function drawPieChart(projects) {
-  // Use d3.rollups to group projects by year and count them
+  // Group projects by year using d3.rollups:
   let rolledData = d3.rollups(
     projects,
     v => v.length,
     d => d.year
   );
+  console.log('Rolled Data:', rolledData);
 
-  // Convert the rolled-up data into the format needed for the pie chart:
-  // [{ value: count, label: year }, …]
+  // Transform rolledData into an array of objects with `value` and `label` keys
   let data = rolledData.map(([year, count]) => ({ value: count, label: year }));
+  console.log('Legend Data:', data);
 
   // Select the SVG element by its id and clear previous content if any
   const svg = d3.select('#projects-pie-plot');
   svg.selectAll("*").remove();
 
-  // Create an arc generator for each pie slice (innerRadius=0 gives a pie chart)
+  // Create an arc generator for each pie slice (inner radius = 0 gives a pie chart)
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
 
-  // Create the pie generator; use the object's "value" property
+  // Create the pie generator; use the object's "value" property for the slice sizes
   const pieGenerator = d3.pie().value(d => d.value);
   const arcData = pieGenerator(data);
 
-  // Define an ordinal color scale (using d3.schemeTableau10)
+  // Define an ordinal color scale using d3.schemeTableau10
   const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
   // Render each slice as a <path> element
@@ -56,12 +58,12 @@ function drawPieChart(projects) {
        .attr('fill', colors(i));
   });
 
-  // Build the legend below the pie chart
-  // Select the <ul class="legend"> element and clear any existing legend items
+  // Build the legend below the pie chart.
+  // Select the <ul class="legend"> element and clear previous content
   const legend = d3.select('.legend');
   legend.selectAll("*").remove();
 
-  // For each data point, create a legend item that specifies the label and value
+  // Create a legend item for each data point
   data.forEach((d, idx) => {
     legend.append('li')
       .attr('style', `--color:${colors(idx)}`)
@@ -71,7 +73,7 @@ function drawPieChart(projects) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // First, load the project data, then render the pie chart with that data.
+  // Fetch your project data and then draw the pie chart with that data.
   const projects = await loadProjectsData();
   drawPieChart(projects);
 });
