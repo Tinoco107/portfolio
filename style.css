@@ -361,3 +361,24 @@ main section article ul {
 .legend-item.selected .swatch {
   background-color: var(--color) !important;
 }
+/*-------------------------------
+   Interactive Search Bar
+--------------------------------*/
+.searchBar {
+  width: 100%;              /* take full available width */
+  max-width: 30em;          /* but no wider than 30em */
+  padding: 0.8em 1em;       /* comfortable padding */
+  font-size: 1rem;          /* matching font-size */
+  border: 1px solid #ccc;   /* subtle border */
+  border-radius: 4px;       /* rounded corners */
+  margin: 1.5em auto;       /* center it and add vertical spacing */
+  display: block;
+  box-sizing: border-box;   /* include padding in the width */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.searchBar:focus {
+  border-color: var(--color-accent);  /* use the global accent on focus */
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);  /* gentle focus glow */
+  outline: none;
+}
