@@ -1,26 +1,38 @@
-// Import D3 from the CDN
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+import { fetchJSON, renderProjects } from 'global.js';
 
-// Select the SVG element created in index.html
-const svg = d3.select('#projects-pie-plot');
+function loadProjectsData() {
+  fetchJSON('lib/projects.json')
+    .then(projects => {
+      const projectsContainer = document.querySelector('.projects');
+      renderProjects(projects, projectsContainer, 'h2');
 
-// Create an arc generator for our pie slices with an outer radius of 50
-const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
+      // Update projects title with count
+      const projectsTitleElem = document.querySelector('.projects-title');
+      if (projectsTitleElem) {
+        projectsTitleElem.textContent = `Projects (${projects ? projects.length : 0})`;
+      }
+    })
+    .catch(error => console.error('Error loading projects:', error));
+}
 
-// Data for our pie chart; using six slices now (e.g., [1, 2, 3, 4, 5, 5])
-const data = [1, 2, 3, 4, 5, 5];
+// D3 pie chart code
+function drawPieChart() {
+  const svg = d3.select('#projects-pie-plot');
+  const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
+  const data = [1, 2, 3, 4, 5, 5];
+  const pieGenerator = d3.pie();
+  const arcData = pieGenerator(data);
+  const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
-// Use D3's pie() function to generate start and end angles for each slice
-const pieGenerator = d3.pie();
-const arcData = pieGenerator(data);
+  arcData.forEach((d, i) => {
+    svg.append('path')
+       .attr('d', arcGenerator(d))
+       .attr('fill', colors(i));
+  });
+}
 
-// Define an ordinal color scale using Tableau10
-const colors = d3.scaleOrdinal(d3.schemeTableau10);
-
-// For every slice, append a <path> element to the SVG using the arc generator.
-// Use the color scale to fill each slice.
-arcData.forEach((d, i) => {
-  svg.append('path')
-     .attr('d', arcGenerator(d))
-     .attr('fill', colors(i));
+document.addEventListener('DOMContentLoaded', () => {
+  loadProjectsData();
+  drawPieChart();
 });
