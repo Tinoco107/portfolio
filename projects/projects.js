@@ -3,77 +3,111 @@ import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
 // Import global functions using the correct relative path
 import { fetchJSON, renderProjects } from '../global.js';
 
+// Global variable to hold all projects data
+let allProjects = [];
+
+/**
+ * Loads the project JSON data, renders the project list,
+ * updates the title with the project count, and returns the projects.
+ */
 function loadProjectsData() {
-  // Return the fetched project data (and render the projects list)
   return fetchJSON('lib/projects.json')
     .then(projects => {
       const projectsContainer = document.querySelector('.projects');
       renderProjects(projects, projectsContainer, 'h2');
-
       const projectsTitleElem = document.querySelector('.projects-title');
       if (projectsTitleElem) {
-        const projectCount = projects ? projects.length : 0;
-        // Update title to "12 projects" rather than "Projects (12)"
-        projectsTitleElem.textContent = `${projectCount} projects`;
+        projectsTitleElem.textContent = `${projects.length} projects`;
       }
       return projects;
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Error loading projects:', error);
       return [];
     });
 }
 
-function drawPieChart(projects) {
-  // Group projects by year using d3.rollups:
+/**
+ * Renders the pie chart and legend for the given projects.
+ * It groups the projects by year and then uses D3 to calculate the
+ * pie slices and create a corresponding legend.
+ *
+ * @param {Array} projectsGiven - Array of projects to render stats for.
+ */
+function renderPieChart(projectsGiven) {
+  // Select the SVG element and clear any existing content
+  const svg = d3.select('#projects-pie-plot');
+  svg.selectAll('*').remove();
+
+  // Group projects by year using d3.rollups
   let rolledData = d3.rollups(
-    projects,
-    v => v.length,
-    d => d.year
+    projectsGiven,
+    (v) => v.length,
+    (d) => d.year
   );
+  // Debug output: check rolled-up results
   console.log('Rolled Data:', rolledData);
 
-  // Transform rolledData into an array of objects with `value` and `label` keys
+  // Map the rolled data into the format needed for the pie chart
+  // { value: count, label: year }
   let data = rolledData.map(([year, count]) => ({ value: count, label: year }));
   console.log('Legend Data:', data);
 
-  // Select the SVG element by its id and clear previous content if any
-  const svg = d3.select('#projects-pie-plot');
-  svg.selectAll("*").remove();
-
-  // Create an arc generator for each pie slice (inner radius = 0 gives a pie chart)
+  // Create an arc generator for pie slices (innerRadius = 0 => pie chart)
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
+  // Create the pie generator; value() accessor now pulls d.value
+  const pieGenerator = d3.pie().value((d) => d.value);
+  let arcData = pieGenerator(data);
 
-  // Create the pie generator; use the object's "value" property for the slice sizes
-  const pieGenerator = d3.pie().value(d => d.value);
-  const arcData = pieGenerator(data);
-
-  // Define an ordinal color scale using d3.schemeTableau10
+  // Define an ordinal color scale (using Tableau10)
   const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
-  // Render each slice as a <path> element
+  // Render pie slices: append a <path> element for each slice
   arcData.forEach((d, i) => {
     svg.append('path')
        .attr('d', arcGenerator(d))
        .attr('fill', colors(i));
   });
 
-  // Build the legend below the pie chart.
-  // Select the <ul class="legend"> element and clear previous content
+  // Update the legend
   const legend = d3.select('.legend');
-  legend.selectAll("*").remove();
+  legend.selectAll('*').remove(); // Clear previous legend items
 
-  // Create a legend item for each data point
   data.forEach((d, idx) => {
     legend.append('li')
-      .attr('style', `--color:${colors(idx)}`)
-      .attr('class', 'legend-item')
-      .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
+          .attr('style', `--color:${colors(idx)}`)
+          .attr('class', 'legend-item')
+          .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
   });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Fetch your project data and then draw the pie chart with that data.
-  const projects = await loadProjectsData();
-  drawPieChart(projects);
+  // Load projects data & render initial project list and pie chart
+  allProjects = await loadProjectsData();
+  renderPieChart(allProjects);
+
+  // Add search functionality for filtering projects and updating stats
+  const searchInput = document.querySelector('.searchBar');
+  const projectsContainer = document.querySelector('.projects');
+
+  searchInput.addEventListener('input', (event) => {
+    // Update query and filter projects (case-insensitive over all properties)
+    const query = event.target.value.toLowerCase();
+    const filteredProjects = allProjects.filter((project) => {
+      const values = Object.values(project).join('\n').toLowerCase();
+      return values.includes(query);
+    });
+
+    // Re-render the project list with filtered projects
+    renderProjects(filteredProjects, projectsContainer, 'h2');
+
+    // Update the projects title with the new count
+    const projectsTitleElem = document.querySelector('.projects-title');
+    if (projectsTitleElem) {
+      projectsTitleElem.textContent = `${filteredProjects.length} projects`;
+    }
+
+    // Re-render the pie chart and legend based only on the filtered projects
+    renderPieChart(filteredProjects);
+  });
 });
