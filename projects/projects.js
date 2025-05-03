@@ -121,24 +121,35 @@ function updateHighlight() {
  * If no wedge is selected (selectedIndex === -1), the full projects list is shown.
  * Otherwise, only projects for the selected year are shown.
  */
-function updateFilteringAndVisualization() {
+ function updateFilteringAndVisualization() {
   const projectsContainer = document.querySelector('.projects');
   const projectsTitleElem = document.querySelector('.projects-title');
+
   let filteredProjects;
-  if (selectedYear) {
-    filteredProjects = allProjects.filter(project => project.year === selectedYear);
+  if (selectedYear && typeof selectedYear === "string") {
+    // Use trim() to remove any extra whitespace from both sides.
+    filteredProjects = allProjects.filter(
+      project => project.year.trim() === selectedYear.trim()
+    );
   } else {
     filteredProjects = allProjects;
   }
-  // Render the projects list based on the filtered projects.
+
+  // Render the filtered projects list.
   renderProjects(filteredProjects, projectsContainer, 'h2');
+
   if (projectsTitleElem) {
     projectsTitleElem.textContent = `${filteredProjects.length} projects`;
   }
-  // Re-render the pie chart using the full dataset so that the grouping remains constant.
+
+  // IMPORTANT:
+  // To keep the grouping (and clickable wedges) consistent, we always re-render the pie chart
+  // using the full dataset. Then we apply the highlight based on the stored selectedYear.
   renderPieChart(allProjects);
-  // Reapply the highlight so that the wedge matching selectedYear remains highlighted.
   updateHighlight();
+
+  // Debug output - check what year is selected and how many projects were filtered.
+  console.log(`Selected Year: "${selectedYear}" - Filtered Projects: ${filteredProjects.length}`);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
