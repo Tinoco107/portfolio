@@ -14,15 +14,15 @@
 
   <!-- Container for the pie chart and its legend -->
   <div class="container">
-    <!-- SVG element for the pie chart -->
     <svg id="projects-pie-plot" viewBox="-50 -50 100 100">
       <!-- D3 will insert pie slices here -->
     </svg>
-
-    <!-- Empty <ul> for the legend; D3 will create <li> elements here -->
     <ul class="legend"></ul>
   </div>
 
+  <!-- Container for rendering your project articles -->
+  <div class="projects"></div>
+  
   <!-- Search field for filtering projects -->
   <input
     class="searchBar"
@@ -30,14 +30,9 @@
     aria-label="Search projects"
     placeholder="🔍 Search projects…"
   />
-  
-  <!-- Container for rendering your project articles -->
-  <div class="projects"></div>
-  
 
-  <!-- Import global functions (ensure correct relative path) -->
+  <!-- Import global functions and your script -->
   <script type="module" src="global.js"></script>
-  <!-- Import the projects loader and pie chart script -->
   <script type="module" src="projects/projects.js"></script>
 </body>
 </html>
