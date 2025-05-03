@@ -96,9 +96,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Also grab the projects container for re-rendering the project list.
   const projectsContainer = document.querySelector('.projects');
 
-  // Attach an event listener for change events (you may also use 'input' for real-time updates).
+  // Attach an event listener .
   if (searchInput) {
-    searchInput.addEventListener('change', (event) => {
+    searchInput.addEventListener('input', (event) => {
       // Update the search query.
       query = event.target.value;
       // Filter projects based on a case-insensitive search across all project properties.
