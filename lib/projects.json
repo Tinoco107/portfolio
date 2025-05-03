@@ -2,73 +2,73 @@
   {
     "title": "Responsive Portfolio Website",
     "year": "2022",
-    "image": "https://example.com/images/portfolio.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A responsive website to showcase my projects and resume. Designed with modern CSS techniques and JavaScript interactivity."
   },
   {
     "title": "Data Visualization Dashboard",
     "year": "2023",
-    "image": "https://example.com/images/dashboard.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "An interactive dashboard built using D3.js that visualizes data trends over time."
   },
   {
     "title": "E-commerce Platform",
     "year": "2021",
-    "image": "https://example.com/images/ecommerce.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A full-stack e-commerce solution with a robust back-end API, payment integration, and a sleek front-end design."
   },
   {
     "title": "Mobile Game App",
     "year": "2024",
-    "image": "https://example.com/images/mobile-game.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A fun and engaging mobile game built with Unity and C#. Features include in-app purchases and social sharing."
   },
   {
     "title": "Machine Learning Model Deployment",
     "year": "2022",
-    "image": "https://example.com/images/ml-model.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "Deployed a machine learning model using Flask and Docker, providing real-time predictions and data insights."
   },
   {
     "title": "Social Media Analytics Tool",
     "year": "2023",
-    "image": "https://example.com/images/social-analytics.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A tool that analyzes social media trends and sentiments, built with Node.js and React."
   },
   {
     "title": "Blog Platform CMS",
     "year": "2021",
-    "image": "https://example.com/images/cms.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "Developed a content management system (CMS) for blogging with features for post scheduling, SEO, and custom theming."
   },
   {
     "title": "Weather Forecasting App",
     "year": "2024",
-    "image": "https://example.com/images/weather-app.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A sleek, user-friendly weather forecasting app that integrates real-time data from external APIs."
   },
   {
     "title": "Interactive Learning Module",
     "year": "2022",
-    "image": "https://example.com/images/learning-module.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "An interactive online course module with quizzes, tutorials, and animations built with HTML5 and JavaScript."
   },
   {
     "title": "Personal Finance Tracker",
     "year": "2023",
-    "image": "https://example.com/images/finance-tracker.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A personal budgeting and finance tracking tool that visualizes spending habits and custom reports."
   },
   {
     "title": "Virtual Reality Experience",
     "year": "2021",
-    "image": "https://example.com/images/vr-experience.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "Developed a VR application that immerses users in a simulated environment, built with A-Frame and WebVR."
   },
   {
     "title": "Chat Application",
     "year": "2024",
-    "image": "https://example.com/images/chat-app.png",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A real-time chat application with support for multimedia messages and cross-platform notifications."
   }
 ]
