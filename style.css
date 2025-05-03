@@ -287,3 +287,10 @@ main section article ul {
   margin-top: 0.3em;
   font-size: 0.9em;
 }
+
+/* SVG styling for the D3 pie chart element */
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
+}
