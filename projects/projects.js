@@ -1,13 +1,13 @@
+// Import D3 from the CDN
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
-import { fetchJSON, renderProjects } from 'global.js';
+// Import global functions using the correct relative path
+import { fetchJSON, renderProjects } from '../global.js';
 
 function loadProjectsData() {
   fetchJSON('lib/projects.json')
     .then(projects => {
       const projectsContainer = document.querySelector('.projects');
       renderProjects(projects, projectsContainer, 'h2');
-
-      // Update projects title with count
       const projectsTitleElem = document.querySelector('.projects-title');
       if (projectsTitleElem) {
         projectsTitleElem.textContent = `Projects (${projects ? projects.length : 0})`;
@@ -16,7 +16,6 @@ function loadProjectsData() {
     .catch(error => console.error('Error loading projects:', error));
 }
 
-// D3 pie chart code
 function drawPieChart() {
   const svg = d3.select('#projects-pie-plot');
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
