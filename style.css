@@ -273,3 +273,17 @@ main section article ul {
   grid-row: 2; /* Force all <dd> elements into the second row */
   background: transparent;
 }
+
+/* Project details container for description and year */
+.project-details {
+  margin-top: 0.5em;
+}
+
+/* Styling for the project year text */
+.project-year {
+  color: gray; /* Gray letters */
+  font-family: Baskerville, serif; /* Baskerville for a classic look */
+  font-variant-numeric: oldstyle-nums; /* Old-style numeral formatting */
+  margin-top: 0.3em;
+  font-size: 0.9em;
+}

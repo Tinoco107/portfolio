@@ -180,11 +180,15 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     article.innerHTML = `
       <${safeHeading}>${project.title || 'Untitled Project'}</${safeHeading}>
       <img src="${project.image || 'placeholder.png'}" alt="${project.title || 'Project Image'}">
-      <p>${project.description || 'No description provided.'}</p>
+      <div class="project-details">
+        <p>${project.description || 'No description provided.'}</p>
+        <p class="project-year">${project.year || ''}</p>
+      </div>
     `;
     containerElement.appendChild(article);
   });
 }
+
 
 /*------------------------------------------------*
  * GitHub Data Functions
