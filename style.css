@@ -248,6 +248,7 @@ main section article ul {
   margin-left: 0.25em;
   padding: 0.25em;
 }
+
 /* Styling for GitHub Profile Stats in the #profile-stats container */
 #profile-stats dl {
   display: grid;
@@ -293,4 +294,45 @@ main section article ul {
   max-width: 20em;
   margin-block: 2em;
   overflow: visible;
+}
+
+/*-------------------------------------*
+ * Additional Styles for Pie Chart Legend
+ *-------------------------------------*/
+
+/* Container for the pie chart and legend */
+.container {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  margin: 2em 0;
+}
+
+/* Legend styling */
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 0.5em;
+}
+
+/* Legend item styling */
+.legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border: 1px solid #ddd;
+  padding: 0.5em;
+  border-radius: 4px;
+}
+
+/* Swatch styling for legend items */
+.legend .legend-item .swatch {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: var(--color);
+  border-radius: 50%;
 }
