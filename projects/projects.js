@@ -11,6 +11,7 @@ let allProjects = [];
 let selectedIndex = -1;
 // Global variable to store the current pie chart data (to use in filtering)
 let currentPieData = [];
+let selectedYear = null; // This variable will store the currently selected year
 
 /**
  * Loads project JSON from `lib/projects.json`, renders the projects list,
