@@ -1,14 +1,8 @@
 console.log('IT’S ALIVE!');
 
 // ----- Removed the inline base override block -----
-// Previously, this code attempted to override the <base> tag:
-// if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-//   const baseEl = document.querySelector("base");
-//   if (baseEl) {
-//     baseEl.setAttribute("href", "/");
-//     console.log("Local development detected: overriding <base> href to '/'");
-//   }
-// }
+// (Previously, this code attempted to override the <base> tag, but it's no longer needed
+// since the HTML now inserts the correct <base> tag via document.write().)
 
 // Helper function for querying elements.
 function $$(selector, context = document) {
@@ -22,14 +16,14 @@ function $$(selector, context = document) {
 // Determine the base path for navigation links dynamically.
 const BASE_PATH =
   (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-    ? "/"         // Local development: workspace root
-    : "/portfolio/";  // Production: GitHub Pages subfolder
+    ? "/"           // Local development: set to the workspace root.
+    : "/portfolio/";  // Production: GitHub Pages subfolder.
 
 // Define a dynamic resource path for fetching assets.
 const RESOURCE_PATH =
   (location.hostname === "localhost" || location.hostname === "127.0.0.1")
-    ? "/"         // Local development: assets live at the workspace root
-    : "/portfolio/";  // Production: assets are under /portfolio/
+    ? "/"           // Local development: assets live at the workspace root.
+    : "/portfolio/";  // Production: assets are served from /portfolio/.
 
 // Define your site pages.
 let pages = [
