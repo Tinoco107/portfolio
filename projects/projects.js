@@ -160,7 +160,6 @@ function updateFilteringAndVisualization() {
 
   // Render the filtered projects list.
   renderProjects(filteredProjects, projectsContainer, 'h2');
-
   if (projectsTitleElem) {
     projectsTitleElem.textContent = `${filteredProjects.length} projects`;
   }

@@ -1,5 +1,16 @@
 console.log('IT’S ALIVE!');
 
+// ----- Removed the inline base override block -----
+// Previously, this code attempted to override the <base> tag:
+// if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+//   const baseEl = document.querySelector("base");
+//   if (baseEl) {
+//     baseEl.setAttribute("href", "/");
+//     console.log("Local development detected: overriding <base> href to '/'");
+//   }
+// }
+
+// Helper function for querying elements.
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
@@ -8,13 +19,19 @@ function $$(selector, context = document) {
  * Automatic Navigation Menu & Dark Mode Switcher
  *------------------------------------------------*/
 
-// Determine the base path for internal links depending on the environment.
+// Determine the base path for navigation links dynamically.
 const BASE_PATH =
-  location.hostname === "localhost" || location.hostname === "127.0.0.1"
-    ? "/"                   // Local server
-    : "/portfolio/";        // GitHub Pages
+  (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    ? "/"         // Local development: workspace root
+    : "/portfolio/";  // Production: GitHub Pages subfolder
 
-// Define your site pages
+// Define a dynamic resource path for fetching assets.
+const RESOURCE_PATH =
+  (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    ? "/"         // Local development: assets live at the workspace root
+    : "/portfolio/";  // Production: assets are under /portfolio/
+
+// Define your site pages.
 let pages = [
   { url: '', title: 'Home' },
   { url: 'projects/', title: 'Projects' },
@@ -23,33 +40,33 @@ let pages = [
   { url: 'https://github.com/Tinoco107', title: 'GitHub' }
 ];
 
-// Create a new <nav> element and add it to the beginning of <body>
+// Create a new <nav> element and add it at the beginning of <body>.
 let nav = document.createElement('nav');
 document.body.prepend(nav);
 
-// Iterate over each page and create a corresponding link
+// Iterate over each page and create a corresponding link.
 for (let p of pages) {
   let { url, title } = p;
 
-  // For relative URLs, prefix with BASE_PATH
+  // For relative URLs, prefix with BASE_PATH.
   url = !url.startsWith('http') ? BASE_PATH + url : url;
 
-  // Create the <a> element
+  // Create the <a> element.
   let a = document.createElement('a');
   a.href = url;
   a.textContent = title;
 
-  // If this link points to the current page, add the 'current' class
+  // If this link points to the current page, add the 'current' class.
   if (a.host === location.host && a.pathname === location.pathname) {
     a.classList.add('current');
   }
 
-  // For external links, open in a new tab
+  // For external links, open in a new tab.
   if (a.host !== location.host) {
     a.target = "_blank";
   }
 
-  // Append the link to the nav element
+  // Append the link to the nav element.
   nav.append(a);
 }
 
@@ -57,7 +74,7 @@ for (let p of pages) {
  * Dark Mode Switcher
  *----------------------------*/
 
-// Insert the dark mode switcher
+// Insert the dark mode switcher.
 document.body.insertAdjacentHTML(
   'afterbegin',
   `
@@ -72,26 +89,26 @@ document.body.insertAdjacentHTML(
     `
 );
 
-// Get a reference to the dark mode select element
+// Get a reference to the dark mode select element.
 const colorSchemeSelect = document.querySelector('.color-scheme select');
 
-// Define a function that sets the CSS color-scheme and saves the preference
+// Define a function that sets the CSS color-scheme and saves the preference.
 function setColorScheme(scheme) {
   document.documentElement.style.setProperty('color-scheme', scheme);
   localStorage.colorScheme = scheme;
 }
 
-// On page load, apply the user's preferred color scheme, if it exists
+// On page load, apply the user's preferred color scheme, if it exists.
 if (localStorage.colorScheme) {
   setColorScheme(localStorage.colorScheme);
   colorSchemeSelect.value = localStorage.colorScheme;
 } else {
-  // Default to automatic (OS-based) color scheme
+  // Default to automatic (OS-based) color scheme.
   setColorScheme('light dark');
   colorSchemeSelect.value = 'light dark';
 }
 
-// Listen for changes on the select element and update the color scheme accordingly
+// Listen for changes on the select element and update the color scheme accordingly.
 colorSchemeSelect.addEventListener('input', function (event) {
   const newScheme = event.target.value;
   console.log('Color scheme changed to', newScheme);
@@ -102,7 +119,7 @@ colorSchemeSelect.addEventListener('input', function (event) {
  * Better Contact Form
  *------------------------------------------------*/
 
-// Get a reference to the contact form which uses a mailto action. 
+// Get a reference to the contact form which uses a mailto action.
 // (Ensure your contact form's <form> has an action that begins with "mailto:")
 const contactForm = document.querySelector('form[action^="mailto:"]');
 if (contactForm) {
@@ -120,7 +137,7 @@ if (contactForm) {
     }
     const queryString = params.join('&');
 
-    // Build the final mailto URL using the form's action (mailto:...) and the parameters.
+    // Build the final mailto URL using the form's action (mailto:...) and parameters.
     const mailtoURL = contactForm.action + '?' + queryString;
     console.log('Opening mailto URL:', mailtoURL);
     
@@ -134,10 +151,10 @@ if (contactForm) {
  *------------------------------------------------*/
 
 // Function to fetch and parse JSON data from a given URL.
-// If the provided URL is not absolute, it is prefixed with BASE_PATH.
+// If the provided URL is not absolute, it is prefixed with RESOURCE_PATH.
 export async function fetchJSON(url) {
   try {
-    const resolvedUrl = url.startsWith('http') ? url : BASE_PATH + url;
+    const resolvedUrl = url.startsWith('http') ? url : RESOURCE_PATH + url;
     console.log("Fetching JSON from:", resolvedUrl); // Debug: log the resolved URL
     const response = await fetch(resolvedUrl);
     if (!response.ok) {
@@ -151,8 +168,6 @@ export async function fetchJSON(url) {
 }
 
 // Function to dynamically render an array of projects into a container element.
-// Projects are rendered using the specified heading level, which defaults to "h2".
-// If the projects array is empty or undefined, a placeholder message is shown.
 export function renderProjects(projects, containerElement, headingLevel = 'h2') {
   if (!containerElement) {
     console.error("Invalid container element provided to renderProjects.");
@@ -188,7 +203,6 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     containerElement.appendChild(article);
   });
 }
-
 
 /*------------------------------------------------*
  * GitHub Data Functions

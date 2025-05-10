@@ -372,8 +372,7 @@ main section article ul {
   border: 1px solid #ccc;   /* subtle border */
   border-radius: 4px;       /* rounded corners */
   margin: 1.5em auto;       /* center it and add vertical spacing */
-  display: block;
-  box-sizing: border-box;   /* include padding in the width */
+  display: blockxrder-box;   /* include padding in the width */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 

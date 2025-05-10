@@ -4,14 +4,25 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <base href="/portfolio/">
+
+  <!-- Dynamically write the base element before any other resource is loaded -->
+  <script>
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+      document.write('<base href="/" />');
+      console.log("Local development detected: base href set to '/'");
+    } else {
+      document.write('<base href="/portfolio/" />');
+      console.log("Production detected: base href set to '/portfolio/'");
+    }
+  </script>
+
   <title>Contact</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 
   <h1>Contact</h1>
-  <form action="mailto:atinoco1118@gmail.com" >
+  <form action="mailto:atinoco1118@gmail.com">
     <label>
       Email:
       <input name="email" type="email" required>
@@ -29,7 +40,8 @@
     <br><br>
     <button>Send Message</button>
   </form>
-  <script type="module" src="global.js"></script>
+  
+  <script type="module" src="/global.js"></script>
 
 </body>
 </html>

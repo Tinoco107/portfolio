@@ -4,7 +4,18 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <base href="/portfolio/">
+  
+  <!-- Dynamically insert the base tag based on the environment -->
+  <script>
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+      document.write('<base href="/" />');
+      console.log("Local development: base href set to '/'");
+    } else {
+      document.write('<base href="/portfolio/" />');
+      console.log("Production: base href set to '/portfolio/'");
+    }
+  </script>
+  
   <title>Angel Tinoco : Personal site and portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -24,8 +35,7 @@
   <!-- Latest Projects Section -->
   <h2>Latest Projects</h2>
   <div class="projects">
-  
-  <!-- Dynamically added project content will appear here -->
+    <!-- Dynamically added project content will appear here -->
   </div>
   
   <h2>GitHub Profile Stats</h2>
@@ -36,9 +46,7 @@
   <!-- Load global functions -->
   <script type="module" src="global.js"></script>
 
-  <!-- Load index.js module that fetches and renders the latest projects and GitHub data -->
+  <!-- Load index.js module that fetches and renders projects and GitHub data -->
   <script src="index.js" type="module" defer></script>
-
-
 </body>
 </html>

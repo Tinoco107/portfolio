@@ -4,7 +4,22 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <base href="/portfolio/">
+  
+  <!--
+    Dynamically writing the <base> element.
+    If running locally, base href is set to "/" so that assets are resolved from the workspace root.
+    In production, it is set to "/portfolio/".
+  -->
+  <script>
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+      document.write('<base href="/" />');
+      console.log("Local development detected: base href set to '/'");
+    } else {
+      document.write('<base href="/portfolio/" />');
+      console.log("Production detected: base href set to '/portfolio/'");
+    }
+  </script>
+  
   <title>Angel Tinoco - CV</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -17,9 +32,7 @@
   </header>
   <main>
 
-  <!-- Main Content -->
-  <main>
-    <!-- Professional Profile Section -->
+    <!-- Main Content -->
     <section id="profile">
       <h2>Professional Profile</h2>
       <p>
@@ -75,7 +88,8 @@
       </ul>
     </section>
   </main>
+  
+  <!-- Load global functions -->
   <script type="module" src="global.js"></script>
-
 </body>
 </html>
