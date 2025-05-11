@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta Analysis</title>
-    <!-- You can add additional CSS/JS here if needed -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Dynamically write the base element -->
+  <script>
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+      document.write('<base href="/" />');
+      console.log("Local development detected: base href set to '/'");
+    } else {
+      document.write('<base href="/portfolio/" />');
+      console.log("Production detected: base href set to '/portfolio/'");
+    }
+  </script>
+  
+  <title>Meta Analysis</title>
+  <!-- Use a relative path to get to the root style.css -->
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
     <header>
@@ -13,5 +26,30 @@
     <section>
         <p>This page provides statistics and visualizations about our project’s code. Dive into the insights to see how our code is performing!</p>
     </section>
+    
+
+  <!-- Placeholder for our statistics -->
+  <div id="stats"></div>
+  
+  <!-- Add this in the <body> of meta/index.html (outside any other major container): -->
+    <dl id="commit-tooltip" class="info tooltip" hidden>
+        <dt>Commit</dt>
+        <dd>
+          <a href="" id="commit-link" target="_blank"></a>
+        </dd>
+        <dt>Date</dt>
+        <dd id="commit-date"></dd>
+        <!-- Optionally: add more rows for Time, Author, Lines Edited, etc. -->
+      </dl>
+      <!-- Display the count of selected commits -->
+    <p id="selection-count">No commits selected</p>
+
+    <!-- Container for language breakdown stats for selected commits -->
+    <dl id="language-breakdown" class="stats"></dl>
+
+                    
+  <!-- You can later add scripts to compute and display dynamic stats -->
+  <script type="module" src="../global.js"></script>
+  <script type="module" src="/meta/main.js"></script>
 </body>
 </html>

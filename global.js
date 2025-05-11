@@ -29,6 +29,7 @@ const RESOURCE_PATH =
 let pages = [
   { url: '', title: 'Home' },
   { url: 'projects/', title: 'Projects' },
+  { url: 'meta/', title: 'Meta ' },
   { url: 'contact/', title: 'Contact' },
   { url: 'cv.html', title: 'CV' },
   { url: 'https://github.com/Tinoco107', title: 'GitHub' }

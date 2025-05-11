@@ -361,6 +361,7 @@ main section article ul {
 .legend-item.selected .swatch {
   background-color: var(--color) !important;
 }
+
 /*-------------------------------
    Interactive Search Bar
 --------------------------------*/
@@ -372,7 +373,8 @@ main section article ul {
   border: 1px solid #ccc;   /* subtle border */
   border-radius: 4px;       /* rounded corners */
   margin: 1.5em auto;       /* center it and add vertical spacing */
-  display: blockxrder-box;   /* include padding in the width */
+  display: block;
+  box-sizing: border-box;   /* include padding in the width */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -380,4 +382,96 @@ main section article ul {
   border-color: var(--color-accent);  /* use the global accent on focus */
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);  /* gentle focus glow */
   outline: none;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.5em 1em;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats dt {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.1em;
+  color: #555;
+  text-align: left;
+}
+
+.stats dd {
+  font-size: 1.1em;
+  color: #111;
+  text-align: right;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.gridlines line {
+  stroke-dasharray: 2 2;
+  stroke-opacity: 0.8;
+}
+
+/* ------------------ Updated Tooltip Styling ------------------ */
+
+/* Layout for info elements with tooltip styling */
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5em;
+  margin: 0;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+  border: 1px solid #ccc;
+  border-radius: 6px;               /* Slightly more rounded corners */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle elevation */
+  backdrop-filter: blur(1px);       /* Frosted glass effect */
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+}
+
+/* When hidden and not hovered/focused, the tooltip fades out */
+dl.info[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Tooltip fixed position */
+.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+}
+
+/* Circle hover styles for scaling */
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+circle:hover {
+  transform: scale(1.5);
+}
+@keyframes marching-ants {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+.selection {
+  fill-opacity: 0.1;
+  stroke: black;
+  stroke-opacity: 0.7;
+  stroke-dasharray: 5 3;
+  animation: marching-ants 2s linear infinite;
+}
+
+/* Style selected dots for emphasis */
+circle.selected {
+  fill: #ff6b6b;
 }
