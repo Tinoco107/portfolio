@@ -22,12 +22,18 @@
 <body>
   <h1>Meta </h1>
   <p>
-    This page provides statistics and visualizations about our project’s code. Dive into the insights to see how our code is performing!<  </p>
+    This page provides statistics and visualizations about our project’s code. Dive into the insights to see how our code is performing! 
+  </p>
 
     <h2>Commits by time of day</h2>
     <div id="chart"></div>
     
+  <!-- Display the count of selected commits -->
+  <p id="selection-count">No commits selected</p>
 
+  <!-- Container for language breakdown stats for selected commits -->
+    <dl id="language-breakdown" class="stats"></dl>
+    
   <!-- Placeholder for our statistics -->
   <div id="stats"></div>
   
@@ -38,14 +44,10 @@
           <a href="" id="commit-link" target="_blank"></a>
         </dd>
         <dt>Date</dt>
-        <dd id="commit-date"></dd>
+        <dd id="commit-date"></dd>1
         <!-- Optionally: add more rows for Time, Author, Lines Edited, etc. -->
       </dl>
-      <!-- Display the count of selected commits -->
-    <p id="selection-count">No commits selected</p>
-
-    <!-- Container for language breakdown stats for selected commits -->
-    <dl id="language-breakdown" class="stats"></dl>
+    
 
                     
   <!-- You can later add scripts to compute and display dynamic stats -->

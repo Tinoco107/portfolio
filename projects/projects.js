@@ -18,6 +18,7 @@ let selectedYear = null;
  * Loads project JSON from `lib/projects.json`, renders the projects list,
  * updates the project title with the count, and returns the projects.
  */
+
 async function loadProjectsData() {
   try {
     const projects = await fetchJSON('lib/projects.json');
@@ -42,6 +43,7 @@ async function loadProjectsData() {
  *
  * @param {Array} projectsGiven - Array of projects to visualize.
  */
+
 function renderPieChart(projectsGiven) {
   // Select and clear the SVG element
   const svg = d3.select('#projects-pie-plot');
@@ -118,6 +120,7 @@ function renderPieChart(projectsGiven) {
  * Updates the highlighting on pie slices and legend items based on the selectedIndex.
  * The selected wedge and corresponding legend item get the 'selected' class.
  */
+
 function updateHighlight() {
   // Update pie slices: if the slice's corresponding year matches selectedYear, add the class.
   const svg = d3.select('#projects-pie-plot');
@@ -144,18 +147,27 @@ function updateHighlight() {
  * If no wedge is selected (selectedIndex === -1), the full projects list is shown.
  * Otherwise, only projects for the selected year are shown.
  */
-function updateFilteringAndVisualization() {
+
+ function updateFilteringAndVisualization() {
   const projectsContainer = document.querySelector('.projects');
   const projectsTitleElem = document.querySelector('.projects-title');
 
-  // Filter projects based on selectedYear if a wedge is selected.
-  let filteredProjects;
+  // Start with all projects.
+  let filteredProjects = allProjects;
+
+  // First, if there's a search query, filter based on it.
+  if (query && query.trim() !== '') {
+    filteredProjects = filteredProjects.filter(project => {
+      const values = Object.values(project).join('\n').toLowerCase();
+      return values.includes(query.toLowerCase());
+    });
+  }
+
+  // Next, if a pie slice is selected (i.e. year filter is active), further narrow down the projects.
   if (selectedIndex !== -1 && selectedYear && typeof selectedYear === "string") {
-    filteredProjects = allProjects.filter(
+    filteredProjects = filteredProjects.filter(
       project => project.year.trim() === selectedYear.trim()
     );
-  } else {
-    filteredProjects = allProjects;
   }
 
   // Render the filtered projects list.
@@ -164,13 +176,14 @@ function updateFilteringAndVisualization() {
     projectsTitleElem.textContent = `${filteredProjects.length} projects`;
   }
 
-  // To keep the wedge grouping consistent, re-render the pie chart using the full dataset.
-  renderPieChart(allProjects);
-  // Reapply highlights after re-rendering.
+  // Re-render the pie chart using the currently filtered projects.
+  renderPieChart(filteredProjects);
+  // Reapply highlights so the selected slice/legend remains emphasized.
   updateHighlight();
 
-  // Debug output to check selected year and filtered projects.
-  console.log(`Selected Year: "${selectedYear}" - Filtered Projects: ${filteredProjects.length}`);
+  console.log(
+    `Selected Year: "${selectedYear}" - Query: "${query}" - Filtered Projects: ${filteredProjects.length}`
+  );
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

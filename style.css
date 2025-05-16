@@ -434,6 +434,7 @@ dl.info {
   transition-duration: 500ms;
   transition-property: opacity, visibility;
 }
+/*  rest cut off below */
 
 /* When hidden and not hovered/focused, the tooltip fades out */
 dl.info[hidden]:not(:hover, :focus-within) {
