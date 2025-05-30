@@ -12,13 +12,10 @@ html {
 body {
   /* Set line height to 1.5 times the font size and use the OS’s UI font */
   font: 100%/1.5 system-ui;
-
   /* Limit content width for optimal readability (roughly 100 characters wide) */
   max-width: 100ch;
-
   /* Center content while ensuring a minimum inline margin on small viewports */
   margin-inline: max(1em, calc((100% - 100ch) / 2));
-
   /* Extra spacing so text doesn’t touch the viewport edges */
   padding: 1em;
 }
@@ -36,7 +33,6 @@ body {
 nav {
   display: flex;
   margin-bottom: 1em;
-  
   /* Define a border color variable that adapts for dark mode */
   --border-color: oklch(50% 10% 200 / 40%);
   border-bottom: 1px solid var(--border-color);
@@ -250,8 +246,8 @@ main section article ul {
 
 #profile-stats dt,
 #profile-stats dd {
-  margin: 0;        /* Remove default margins */
-  padding: 0.5rem;  /* Add some padding for better spacing */
+  margin: 0;
+  padding: 0.5rem;
 }
 
 #profile-stats dt {
@@ -384,6 +380,9 @@ main section article ul {
   outline: none;
 }
 
+/*-------------------------------------*
+ * Statistics Block Styling
+ *-------------------------------------*/
 .stats {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -412,14 +411,15 @@ main section article ul {
   padding: 0.5rem;
 }
 
+/*-------------------------------------*
+ * Gridlines in Visualizations
+ *-------------------------------------*/
 .gridlines line {
   stroke-dasharray: 2 2;
   stroke-opacity: 0.8;
 }
 
-/* ------------------ Updated Tooltip Styling ------------------ */
-
-/* Layout for info elements with tooltip styling */
+/*------------------ Updated Tooltip Styling ------------------*/
 dl.info {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -458,7 +458,7 @@ circle {
   transition: 200ms;
   transform-origin: center;
   transform-box: fill-box;
-  /* @starting-style: sets initial radius to 0 for entry transition */
+  /* Entry transition: new circles start with radius 0 */
   @starting-style {
     r: 0;
   }
@@ -467,9 +467,7 @@ circle:hover {
   transform: scale(1.5);
 }
 
-/* Optionally, if you want constant speed for new circle transitions,
-   you can specify a CSS variable --r on each circle when setting its radius.
-   Then adjust transition duration as below:
+/* Optionally, for constant-speed transitions you can use:
    transition: all 200ms, r calc(var(--r) * 100ms);
 */
 
@@ -495,7 +493,10 @@ circle.selected {
   fill: #ff6b6b;
 }
 
-
+/*-------------------------------
+  Unit Visualization for Files
+--------------------------------*/
+/* Grid layout for the file list */
 #files {
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -513,7 +514,28 @@ circle.selected {
   font-weight: bold;
 }
 
+#files dt small {
+  display: block;
+  font-size: 80%;
+  opacity: 0.7;
+}
+
 #files dd {
   grid-column: 2;
-  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  align-content: start;
+  gap: 0.15em;
+  padding-top: 0.6em;
+  margin-left: 0;
+}
+
+/* Style each unit (line) dot */
+.loc {
+  display: flex;
+  width: 0.5em;
+  aspect-ratio: 1;
+  background: steelblue;
+  border-radius: 50%;
 }

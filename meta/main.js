@@ -344,33 +344,43 @@ function updateScatterPlot(data, commits) {
 // Update File Display for Filtered Commits
 // --------------------------------------------------------------------------
 function updateFileDisplay(filteredCommits) {
-  // Flatten all lines of code for the filtered commits
+  // Flatten all lines of code from the filtered commits.
   let lines = filteredCommits.flatMap((d) => d.lines);
-  // Group the lines by file and attach the filename and array of lines.
+  // Group the lines by file (using file name as key) and attach the array of lines.
   let files = d3
     .groups(lines, (d) => d.file)
     .map(([name, lines]) => ({ name, lines }));
   
-  // Sort the files array in descending order by number of lines
+  // Sort the files array in descending order by number of lines.
   files.sort((a, b) => b.lines.length - a.lines.length);
 
-  // Bind file data to a div under the #files element, using the file name as the key.
+  // Bind file data to a div under the #files element, keyed by the file name.
   let filesContainer = d3
     .select('#files')
     .selectAll('div')
     .data(files, (d) => d.name)
-    .join(
-      (enter) =>
-        enter.append('div').call((div) => {
-          div.append('dt').append('code');
-          div.append('dd');
-        })
+    .join((enter) =>
+      enter.append('div').call((div) => {
+        div.append('dt').append('code');
+        div.append('dd');
+      })
     );
 
-  // Update the file details.
-  filesContainer.select('dt > code').text((d) => d.name);
-  filesContainer.select('dd').text((d) => `${d.lines.length} lines`);
+  // Update the file title along with a <small> element showing the line count.
+  filesContainer
+    .select('dt > code')
+    .html((d) => `${d.name}<small>${d.lines.length} lines</small>`);
+
+  // Instead of a text summary, replace the contents of <dd> with a unit for each line.
+  filesContainer
+    .select('dd')
+    .html('') // Clear any previous content.
+    .selectAll('div')
+    .data((d) => d.lines)
+    .join('div')
+    .attr('class', 'loc');
 }
+
 // --------------------------------------------------------------------------
 // Main Async Function
 // --------------------------------------------------------------------------
@@ -408,9 +418,8 @@ async function main() {
     filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
     updateScatterPlot(data, filteredCommits);
     updateFileDisplay(filteredCommits);
-    // (Optionally, update commit stats here too.)
   }
-  
+    
   // Attach the slider event listener.
   d3.select('#commit-progress').on('input', onTimeSliderChange);
   
