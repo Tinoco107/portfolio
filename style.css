@@ -425,9 +425,6 @@ circle {
 circle:hover {
   transform: scale(1.5);
 }
-/* Optionally, for constant-speed transitions you can use:
-   transition: all 200ms, r calc(var(--r) * 100ms);
-*/
 
 /*-------------------------------
    Interactive Selection Styling
@@ -441,9 +438,7 @@ circle:hover {
 }
 
 @keyframes marching-ants {
-  to {
-    stroke-dashoffset: -8;
-  }
+  to { stroke-dashoffset: -8; }
 }
 
 circle.selected {
@@ -516,11 +511,35 @@ circle.selected {
   position: sticky;
   top: 0;
   left: 0;
-  bottom: auto;
   height: 50vh;
 }
 
-/* Provide extra spacing for each .step so scrolling works nicely */
+/*-------------------------------
+   Scrollytelling Layout for File Visualization
+--------------------------------*/
+#scrolly-2 {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+
+#scrolly-2 > * {
+  flex: 1;
+}
+
+#files-story {
+  position: relative;
+}
+
+#files-chart {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 50vh;
+}
+
+/* Extra spacing for each step */
 .step {
   padding-bottom: 4rem;
 }
