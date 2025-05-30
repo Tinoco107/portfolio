@@ -8,7 +8,7 @@
   },
   {
     "title": "Boston Bike Traffic Visualizer",
-    "year": "2024",
+    "year": "2025",
     "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "An interactive mapping app built with Mapbox and D3.js that visualizes Bluebikes traffic data in the Boston area. Features include dynamic filtering by time, tooltips, a legend, and color-coded markers that reveal traffic flow (arrivals vs. departures).",
     "url": "https://yourdemo.example.com"
