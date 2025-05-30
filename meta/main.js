@@ -109,7 +109,6 @@ function renderCommitInfo(data, commits) {
 // --------------------------------------------------------------------------
 // Tooltip Functions
 // --------------------------------------------------------------------------
-
 function renderTooltipContent(commit) {
   const link = document.getElementById('commit-link');
   const date = document.getElementById('commit-date');
@@ -218,6 +217,7 @@ function renderScatterPlot(data, commits) {
   // Append a container for dots.
   const dots = svg.append('g').attr('class', 'dots');
 
+  // Use a key function so circles remain stable by commit id.
   dots.selectAll('circle')
     .data(sortedCommits, (d) => d.id)
     .join('circle')
@@ -316,7 +316,7 @@ function updateScatterPlot(data, commits) {
   xAxisGroup.selectAll('*').remove();
   xAxisGroup.call(xAxis);
 
-  // Update the dots.
+  // Update the dots using a key (d.id) for stability.
   const dots = svg.select('g.dots');
   const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
 
@@ -340,6 +340,37 @@ function updateScatterPlot(data, commits) {
     });
 }
 
+// --------------------------------------------------------------------------
+// Update File Display for Filtered Commits
+// --------------------------------------------------------------------------
+function updateFileDisplay(filteredCommits) {
+  // Flatten all lines of code for the filtered commits
+  let lines = filteredCommits.flatMap((d) => d.lines);
+  // Group the lines by file and attach the filename and array of lines.
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => ({ name, lines }));
+  
+  // Sort the files array in descending order by number of lines
+  files.sort((a, b) => b.lines.length - a.lines.length);
+
+  // Bind file data to a div under the #files element, using the file name as the key.
+  let filesContainer = d3
+    .select('#files')
+    .selectAll('div')
+    .data(files, (d) => d.name)
+    .join(
+      (enter) =>
+        enter.append('div').call((div) => {
+          div.append('dt').append('code');
+          div.append('dd');
+        })
+    );
+
+  // Update the file details.
+  filesContainer.select('dt > code').text((d) => d.name);
+  filesContainer.select('dd').text((d) => `${d.lines.length} lines`);
+}
 // --------------------------------------------------------------------------
 // Main Async Function
 // --------------------------------------------------------------------------
@@ -376,12 +407,14 @@ async function main() {
     // Filter commits by commitMaxTime.
     filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
     updateScatterPlot(data, filteredCommits);
+    updateFileDisplay(filteredCommits);
     // (Optionally, update commit stats here too.)
   }
   
   // Attach the slider event listener.
   d3.select('#commit-progress').on('input', onTimeSliderChange);
-  // Initialize the time display AFTER the scatterplot is rendered.
+  
+  // Initialize the time display and file view AFTER the scatterplot is rendered.
   onTimeSliderChange({ target: { value: commitProgress } });
 }
 
