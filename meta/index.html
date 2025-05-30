@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Dynamically write the base element -->
   <script>
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
       document.write('<base href="/" />');
@@ -12,7 +14,9 @@
       console.log("Production detected: base href set to '/portfolio/'");
     }
   </script>
+
   <title>Meta Analysis</title>
+  <!-- Use a relative path to get to the root style.css -->
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
@@ -22,32 +26,20 @@
     Dive into the insights to see how our code is performing!
   </p>
 
-  <!-- Evolution Visualization: Filtering UI -->
-  <div class="commit-timeline-filter" style="display: flex; align-items: baseline; margin-bottom: 1em;">
-    <label for="commit-progress" style="flex: 1;">
-      Show commits until:
-      <input type="range" id="commit-progress" min="0" max="100" value="100" style="vertical-align: middle;">
-    </label>
-    <time id="commit-time" style="margin-left: auto;"></time>
+  <!-- Evolution Visualization (scrollytelling) -->
+  <div id="scrolly-1">
+    <div id="scatter-story">
+      <!-- The commit text steps will be generated here -->
+    </div>
+    <div id="scatter-plot">
+      <!-- We wrap the scatter plot (rendered in #chart) so that it remains sticky -->
+      <div id="chart"></div>
+    </div>
   </div>
-
-  <!-- Unit Visualization for Files -->
-  <dl id="files">
-    <!-- For each file we will generate a structure:
-         <div>
-           <dt><code>{file.name}<small>{file.lines.length} lines</small></code></dt>
-           <dd>
-             <div class="loc"></div>
-             <div class="loc"></div>
-             ...
-           </dd>
-         </div>
-    -->
-  </dl>
-
-  <h2>Commits by time of day</h2>
-  <div id="chart"></div>
-
+  
+  <!-- Unit Visualization for Files (moved to the end) -->
+  <dl id="files"></dl>
+  
   <!-- Display the count of selected commits -->
   <p id="selection-count">No commits selected</p>
 

@@ -10,21 +10,17 @@ html {
 }
 
 body {
-  /* Set line height to 1.5 times the font size and use the OS’s UI font */
   font: 100%/1.5 system-ui;
-  /* Limit content width for optimal readability (roughly 100 characters wide) */
   max-width: 100ch;
-  /* Center content while ensuring a minimum inline margin on small viewports */
   margin-inline: max(1em, calc((100% - 100ch) / 2));
-  /* Extra spacing so text doesn’t touch the viewport edges */
   padding: 1em;
 }
 
 .fit-picture {
   max-width: 100%;
   height: auto;
-  display: block; /* Removes inline spacing issues */
-  margin: 0 auto; /* Centers the image */
+  display: block;
+  margin: 0 auto;
 }
 
 /*-------------------------------------*
@@ -33,45 +29,37 @@ body {
 nav {
   display: flex;
   margin-bottom: 1em;
-  /* Define a border color variable that adapts for dark mode */
   --border-color: oklch(50% 10% 200 / 40%);
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Remove default <ul> & <li> styling */
 nav ul,
 nav li {
   display: contents;
 }
 
-/* Style each navigation link */
 nav a {
   flex: 1;
-  text-decoration: none; /* Remove underlines */
+  text-decoration: none;
   color: inherit;
   text-align: center;
   padding: 0.5em;
 }
 
-/* Special styling for the current page’s link */
 nav a.current {
   border-bottom: 0.4em solid oklch(80% 3% 200);
-  /* Adjust padding to counter extra border height */
   padding-bottom: calc(0.5em - 0.4em);
 }
 
-/* Hover styles for navigation links */
 nav a:hover {
   border-bottom: 0.4em solid var(--color-accent);
   padding-bottom: calc(0.5em - 0.4em);
-  /* Blend the accent with the system’s canvas color for a better dark mode effect */
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
 /*-------------------------------------*
  * Contact Form Styling (using CSS Grid)
  *-------------------------------------*/
-/* Ensure form controls match the site’s typography and sizing */
 form input,
 form textarea,
 form button {
@@ -80,14 +68,10 @@ form button {
   box-sizing: border-box;
 }
 
-/* Hide any <br> elements in the form so the grid layout isn’t disturbed */
 form br {
   display: none;
 }
 
-/* Define the form as a two-column grid:
-   - First column (auto) sized to its content
-   - Second column (1fr) takes up the remaining space */
 form {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -95,15 +79,12 @@ form {
   align-items: center;
 }
 
-/* Use subgrid on labels so that their inner elements align with the form grid.
-   Also, force each label to span both columns. */
 form label {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
 }
 
-/* Make the submit button span the entire grid width */
 form button {
   grid-column: 1 / -1;
 }
@@ -111,14 +92,12 @@ form button {
 /*-------------------------------------*
  * Projects Page Styling
  *-------------------------------------*/
-/* Responsive grid for projects */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
   gap: 1em;
 }
 
-/* Each article becomes a grid container with subgrid to align its contents */
 .projects article {
   display: grid;
   grid-template-rows: subgrid;
@@ -126,7 +105,6 @@ form button {
   gap: 0.5em;
 }
 
-/* Remove excessive margin from <h2> headings in articles */
 .projects article h2 {
   margin: 0;
 }
@@ -134,9 +112,8 @@ form button {
 /*-------------------------------------*
  * Global Headings Styling
  *-------------------------------------*/
-/* Strong hierarchy for <h1> headings */
 h1 {
-  font-size: 400%; /* 400% of body text size */
+  font-size: 400%;
   line-height: 1.1;
   text-wrap: balance;
 }
@@ -149,7 +126,6 @@ h2, h3, h4, h5, h6 {
 /*-------------------------------------*
  * CV Page Styling
  *-------------------------------------*/
-/* CV Header styling */
 header {
   text-align: center;
   border-bottom: 2px solid oklch(80% 3% 200);
@@ -216,7 +192,6 @@ main section article ul {
 /*-------------------------------------*
  * Dark Mode Switcher Styling
  *-------------------------------------*/
-/* Position the dark mode switcher at the top right corner */
 .color-scheme {
   position: absolute;
   top: 1rem;
@@ -239,7 +214,7 @@ main section article ul {
 #profile-stats dl {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem; /* Optional: adjust gap between grid items */
+  gap: 1rem;
   text-align: center;
   margin: 1rem 0;
 }
@@ -268,7 +243,6 @@ main section article ul {
   margin-top: 0.5em;
 }
 
-/* Styling for the project year text */
 .project-year {
   color: gray;
   font-family: Baskerville, serif;
@@ -289,8 +263,6 @@ main section article ul {
 /*-------------------------------------*
  * Container and Legend for Pie Chart
  *-------------------------------------*/
-
-/* Container for the pie chart and legend */
 .container {
   display: flex;
   gap: 2em;
@@ -298,8 +270,6 @@ main section article ul {
   margin: 2em 0;
 }
 
-/* Legend styling */
-/* Note: Flex-1 ensures the legend takes up all available width */
 .legend {
   flex: 1;
   list-style: none;
@@ -310,7 +280,6 @@ main section article ul {
   gap: 0.5em;
 }
 
-/* Legend item styling */
 .legend .legend-item {
   display: flex;
   align-items: center;
@@ -332,28 +301,23 @@ main section article ul {
 /*-------------------------------------*
  * Interactive Pie Chart Highlighting
  *-------------------------------------*/
-/* Add smooth transition and clickable pointer to pie slices */
 #projects-pie-plot path {
   transition: fill 300ms, opacity 300ms;
   cursor: pointer;
 }
 
-/* Highlight Effect on Hover: fade out non-hovered slices */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
 
-/* Selected state styling: override color via custom property */
 .selected {
   --color: oklch(60% 45% 0) !important;
 }
 
-/* Apply selected styling for pie slices */
 #projects-pie-plot path.selected {
   fill: var(--color) !important;
 }
 
-/* Apply selected styling for legend items (swatch only) */
 .legend-item.selected .swatch {
   background-color: var(--color) !important;
 }
@@ -362,21 +326,21 @@ main section article ul {
    Interactive Search Bar
 --------------------------------*/
 .searchBar {
-  width: 100%;              /* take full available width */
-  max-width: 30em;          /* but no wider than 30em */
-  padding: 0.8em 1em;       /* comfortable padding */
-  font-size: 1rem;          /* matching font-size */
-  border: 1px solid #ccc;   /* subtle border */
-  border-radius: 4px;       /* rounded corners */
-  margin: 1.5em auto;       /* center it and add vertical spacing */
+  width: 100%;
+  max-width: 30em;
+  padding: 0.8em 1em;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 1.5em auto;
   display: block;
-  box-sizing: border-box;   /* include padding in the width */
+  box-sizing: border-box;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .searchBar:focus {
-  border-color: var(--color-accent);  /* use the global accent on focus */
-  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);  /* gentle focus glow */
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
   outline: none;
 }
 
@@ -426,23 +390,20 @@ dl.info {
   gap: 0.5em;
   margin: 0;
   padding: 1em;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+  background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #ccc;
-  border-radius: 6px;               /* Slightly more rounded corners */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle elevation */
-  backdrop-filter: blur(1px);       /* Frosted glass effect */
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(1px);
   transition-duration: 500ms;
   transition-property: opacity, visibility;
 }
-/*  rest cut off below */
 
-/* When hidden and not hovered/focused, the tooltip fades out */
 dl.info[hidden]:not(:hover, :focus-within) {
   opacity: 0;
   visibility: hidden;
 }
 
-/* Tooltip fixed position */
 .tooltip {
   position: fixed;
   top: 1em;
@@ -452,8 +413,6 @@ dl.info[hidden]:not(:hover, :focus-within) {
 /*-------------------------------
    Interactive SVG Circles
 --------------------------------*/
-
-/* Circle transition and entry styling */
 circle {
   transition: 200ms;
   transform-origin: center;
@@ -466,7 +425,6 @@ circle {
 circle:hover {
   transform: scale(1.5);
 }
-
 /* Optionally, for constant-speed transitions you can use:
    transition: all 200ms, r calc(var(--r) * 100ms);
 */
@@ -488,15 +446,13 @@ circle:hover {
   }
 }
 
-/* Style selected dots for emphasis */
 circle.selected {
   fill: #ff6b6b;
 }
 
 /*-------------------------------
-  Unit Visualization for Files
+    Unit Visualization for Files
 --------------------------------*/
-/* Grid layout for the file list */
 #files {
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -531,12 +487,40 @@ circle.selected {
   margin-left: 0;
 }
 
-/* Style each unit (line) dot */
-/* Style each unit (line) dot and use the custom property for color */
 .loc {
   display: flex;
   width: 0.5em;
   aspect-ratio: 1;
   background: var(--color, steelblue);
   border-radius: 50%;
+}
+
+/*-------------------------------
+   Scrollytelling Layout
+--------------------------------*/
+#scrolly-1 {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+
+#scrolly-1 > * {
+  flex: 1;
+}
+
+#scatter-story {
+  position: relative;
+}
+
+#scatter-plot {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: auto;
+  height: 50vh;
+}
+
+/* Provide extra spacing for each .step so scrolling works nicely */
+.step {
+  padding-bottom: 4rem;
 }
