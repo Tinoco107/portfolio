@@ -344,15 +344,14 @@ function updateScatterPlot(data, commits) {
 // Update File Display for Filtered Commits
 // --------------------------------------------------------------------------
 function updateFileDisplay(filteredCommits) {
-  // Flatten all lines of code from the filtered commits.
+  // Flatten all lines of code for the filtered commits.
   let lines = filteredCommits.flatMap((d) => d.lines);
-  // Group the lines by file (using file name as key) and attach the array of lines.
+  // Group the lines by file and attach the filename and array of lines,
+  // then sort in descending order by number of lines.
   let files = d3
     .groups(lines, (d) => d.file)
-    .map(([name, lines]) => ({ name, lines }));
-  
-  // Sort the files array in descending order by number of lines.
-  files.sort((a, b) => b.lines.length - a.lines.length);
+    .map(([name, lines]) => ({ name, lines }))
+    .sort((a, b) => b.lines.length - a.lines.length);
 
   // Bind file data to a div under the #files element, keyed by the file name.
   let filesContainer = d3
@@ -371,7 +370,7 @@ function updateFileDisplay(filteredCommits) {
     .select('dt > code')
     .html((d) => `${d.name}<small>${d.lines.length} lines</small>`);
 
-  // Instead of a text summary, replace the contents of <dd> with a unit for each line.
+  // For each file, replace the contents of <dd> with a div for each line.
   filesContainer
     .select('dd')
     .html('') // Clear any previous content.
