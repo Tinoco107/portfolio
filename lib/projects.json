@@ -1,9 +1,17 @@
 [
+  
   {
     "title": "Responsive Portfolio Website",
     "year": "2022",
     "image": "https://vis-society.github.io/labs/2/images/empty.svg",
     "description": "A responsive website to showcase my projects and resume. Designed with modern CSS techniques and JavaScript interactivity."
+  },
+  {
+    "title": "Boston Bike Traffic Visualizer",
+    "year": "2024",
+    "image": "images/bikewatching.png",
+    "description": "An interactive mapping app built with Mapbox and D3.js that visualizes Bluebikes traffic data in the Boston area. Features include dynamic filtering by time, tooltips, a legend, and color-coded markers that reveal traffic flow (arrivals vs. departures).",
+    "url": "https://yourdemo.example.com"
   },
   {
     "title": "Data Visualization Dashboard",

@@ -1,8 +1,5 @@
 console.log('IT’S ALIVE!');
 
-// ----- Removed the inline base override block -----
-// (Previously, this code attempted to override the <base> tag, but it's no longer needed
-// since the HTML now inserts the correct <base> tag via document.write().)
 
 // Helper function for querying elements.
 function $$(selector, context = document) {

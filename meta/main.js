@@ -31,7 +31,7 @@ function processCommits(data) {
         time,
         timezone,
         datetime,
-        // Compute the hour as a decimal (e.g., 2:30 PM → 14.5)
+        // Compute the hour as a decimal (e.g., 2:30 PM → 14.5)
         hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
         totalLines: lines.length,
       };
@@ -177,7 +177,7 @@ function renderScatterPlot(data, commits) {
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
   
-  // ───────── Render Axes First ─────────
+  // Render Axes First
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3
     .axisLeft(yScale)
@@ -193,7 +193,7 @@ function renderScatterPlot(data, commits) {
     .attr('transform', `translate(${usableArea.left}, 0)`)
     .call(yAxis);
   
-  // ───────── Render Dashed Horizontal Gridlines Next ─────────
+  // Render Dashed Horizontal Gridlines
   const gridlines = svg.append('g')
     .attr('class', 'gridlines')
     .attr('transform', `translate(${usableArea.left}, 0)`);
@@ -211,15 +211,15 @@ function renderScatterPlot(data, commits) {
   
   gridlines.lower();
   
-  // ───────── Create a Radius Scale Based on Total Lines Edited ─────────
+  // Create a Radius Scale Based on Total Lines Edited
   const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
   // Use a square root scale so that circle area (proportional to r^2) is more accurate.
   const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([2, 30]);
   
-  // ───────── Sort commits so that larger dots are rendered first (and smaller on top) ─────────
+  // Sort commits so that larger dots are rendered first (and smaller on top)
   const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
   
-  // ───────── Render Circles (Dots) with Tooltip Events and Dot Sizing ─────────
+  // Render Circles (Dots) with Tooltip Events and Dot Sizing
   const dots = svg.append('g').attr('class', 'dots');
   
   dots.selectAll('circle')
@@ -241,8 +241,7 @@ function renderScatterPlot(data, commits) {
       updateTooltipVisibility(false);
     });
   
-  // ───────── Define Brush-Related Helper Functions ─────────
-  // isCommitSelected uses the local xScale and yScale.
+  // Brush-related helper functions
   function isCommitSelected(selection, commit) {
     if (!selection) return false;
     const [[x0, y0], [x1, y1]] = selection;
@@ -282,9 +281,8 @@ function renderScatterPlot(data, commits) {
     renderLanguageBreakdown(selection);
   }
   
-  // ───────── Initialize Brush and Adjust DOM Order ─────────
+  // Initialize Brush and Adjust DOM Order
   svg.call(d3.brush().on('start brush end', brushed));
-  // Push dots (and subsequent elements) above the brush overlay.
   svg.selectAll('.dots, .overlay ~ *').raise();
   
   console.log(commits);
@@ -298,6 +296,41 @@ async function main() {
   const commits = processCommits(data);
   console.log(commits); // For debugging
   
+  // ------------------------------------------------------------------------
+  // Evolution Visualization: Filtering UI
+  // ------------------------------------------------------------------------
+  // commitProgress represents a percentage (0–100) of the total commit timeline.
+  let commitProgress = 100;
+  // Create a time scale that maps commit datetime values to a percentage.
+  let timeScale = d3.scaleTime()
+    .domain([
+      d3.min(commits, (d) => d.datetime),
+      d3.max(commits, (d) => d.datetime)
+    ])
+    .range([0, 100]);
+  // Determine the current maximum commit time from the commitProgress percentage.
+  let commitMaxTime = timeScale.invert(commitProgress);
+  
+  // Event handler for updating the timeline slider.
+  function onTimeSliderChange(event) {
+    commitProgress = +event.target.value;
+    commitMaxTime = timeScale.invert(commitProgress);
+    d3.select('#commit-time')
+      .text(commitMaxTime.toLocaleString('en', { dateStyle: "long", timeStyle: "short" }));
+      
+    // Optionally, update your visualization by filtering out commits beyond commitMaxTime.
+  }
+  
+  // Attach the event listener to the slider.
+  d3.select('#commit-progress')
+    .on('input', onTimeSliderChange);
+  
+  // Initialize the commit time display on page load.
+  onTimeSliderChange({ target: { value: commitProgress } });
+  
+  // ------------------------------------------------------------------------
+  // Render Visualizations
+  // ------------------------------------------------------------------------
   renderCommitInfo(data, commits);
   renderScatterPlot(data, commits);
 }
